@@ -19,6 +19,11 @@ app.route('/skrypty/skrypt.js')
     res.sendFile(path.join(__dirname + '/skrypty/skrypt.js'));
   });
 
+app.route('/css/css.css')
+  .all(function (req, res, next) {
+    res.sendFile(path.join(__dirname + '/css/css.css'));
+  });
+
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
