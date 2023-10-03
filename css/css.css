@@ -1,3 +1,7 @@
-body{
-    background-image: url("https://th.bing.com/th/id/R.a16890fa95e6b320ae4b75eccd80497d?rik=soN7F4vCt8HCiA&riu=http%3a%2f%2fclipart-library.com%2fimages%2fkc85anX6i.gif&ehk=FAbiei8mU8VpnJeb7BQOAOZuIQ90yz9FpGxWhpCiKVE%3d&risl=&pid=ImgRaw&r=0");
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
