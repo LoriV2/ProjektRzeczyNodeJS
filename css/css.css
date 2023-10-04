@@ -1,7 +1,44 @@
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+body {
+  background-color: #183A37;
+}
+
+.zdjcrzeczy {
+  border-radius: 20px;
+  width: 100%;
+}
+
+.pojemnik {
+  margin-top: 10vh;
+  margin-bottom: 40vh;
+}
+
+nav {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #04151F;
+}
+
+.card {
+  border-radius: 20px;
+  background-color: #EFD6AC;
+}
+
+footer {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  background-color: #2F2D2E;
+}
+
+/*# sourceMappingURL=css.css.map */
