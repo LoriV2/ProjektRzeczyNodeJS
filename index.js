@@ -15,10 +15,7 @@ app.route('/Nartykuly')
     res.render(path.join(__dirname + '/podstrony/Narykuly.ejs'));
   });
 
-const hostname = 'localhost';
-const port = 3000;
 
-const server = http.createServer((app));
 
 app.route('/skrypty/skrypt.js')
   .all(function (req, res, next) {
@@ -29,7 +26,3 @@ app.route('/css/css.css')
   .all(function (req, res, next) {
     res.sendFile(path.join(__dirname + '/css/css.css'));
   });
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
