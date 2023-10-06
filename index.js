@@ -6,6 +6,10 @@ app.use(express.json());
 app.use(express.static("strona"));
 app.set('view engine', 'ejs');
 // default URL for website
+
+const PORT = process.env.PORT || 3030;
+
+
 app.route('/')
   .all(function (req, res, next) {
     res.render(path.join(__dirname + '/podstrony/index.ejs'), { data: "jej" });
@@ -26,3 +30,9 @@ app.route('/css/css.css')
   .all(function (req, res, next) {
     res.sendFile(path.join(__dirname + '/css/css.css'));
   });
+
+
+
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
