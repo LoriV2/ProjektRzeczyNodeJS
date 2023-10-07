@@ -15,23 +15,23 @@ app.listen(PORT, () => {
 
 app.route('')
   .all(function (req, res, next) {
-    res.render(path.join(__dirname + '/podstrony/index.ejs'), { data: "jej" });
+    res.status(200).render(path.join(__dirname + '/podstrony/index.ejs'), { data: "jej" });
   });
 app.route('/Nartykuly')
   .all(function (req, res, next) {
-    res.render(path.join(__dirname + '/podstrony/Narykuly.ejs'));
+    res.status(200).render(path.join(__dirname + '/podstrony/Narykuly.ejs'));
   });
 
 
 
 app.route('/skrypty/skrypt.js')
   .all(function (req, res, next) {
-    res.sendFile(path.join(__dirname + '/skrypty/skrypt.js'));
+    res.status(200).sendFile(path.join(__dirname + '/skrypty/skrypt.js'));
   });
 
 app.route('/css/css.css')
   .all(function (req, res, next) {
-    res.sendFile(path.join(__dirname + '/css/css.css'));
+    res.status(200).sendFile(path.join(__dirname + '/css/css.css'));
   });
 
 
