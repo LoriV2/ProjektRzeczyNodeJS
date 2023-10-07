@@ -9,8 +9,11 @@ app.set('view engine', 'ejs');
 
 const PORT = process.env.PORT || 3030;
 
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
 
-app.route('/')
+app.route('')
   .all(function (req, res, next) {
     res.render(path.join(__dirname + '/podstrony/index.ejs'), { data: "jej" });
   });
@@ -33,6 +36,3 @@ app.route('/css/css.css')
 
 
 
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
-});
