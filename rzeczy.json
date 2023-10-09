@@ -1,4 +1,14 @@
 {
-    "hasłoBaza": "WXMW5X6nvbJCrEnK"
-    
+    "server": "data-yy.cos8umbteiwm.eu-central-1.rds.amazonaws.com",
+    "user": "zajacjest",
+    "password": "szczurnakole",
+    "port": 1433,
+    "database": "data-y",
+    "options": {
+        "encrypt": false
+    },
+    "pool": {
+        "max": 100,
+        "min": 0
+    }
 }
