@@ -26,6 +26,10 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                     li.nav-item
                         a.nav-link(href='#') Rejestracja
 .container-lg.pojemnik
+    ul
+        each row in message
+            li= row.id
+            li = row
     .row.row-cols-1.row-cols-md-2.g-4
         .col
             .card
