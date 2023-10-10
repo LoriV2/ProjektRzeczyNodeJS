@@ -11,6 +11,11 @@ $fourthary-color: #2F2D2E;
     box-sizing: border-box;
 }
 
+form{
+    input{
+        margin: 12%;
+    }
+}
 
 body {
     background-color: $secondary-color;
@@ -46,4 +51,14 @@ footer {
     width: 100%;
     height: 300px;
     background-color: $fourthary-color;
+}
+
+.login-div {
+    border-radius: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $thirdary-color;
+    width: 30vw;
+    height: 30vh;
 }
