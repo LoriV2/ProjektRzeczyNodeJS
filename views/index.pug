@@ -27,9 +27,8 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                         a.nav-link(href='/Rejestracja') Rejestracja
 .container-lg.pojemnik
     ul
-        each row in message
-            li= row.id
-            li = row
+        each item in message
+            li= item.haslo
     .row.row-cols-1.row-cols-md-2.g-4
         .col
             .card

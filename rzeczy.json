@@ -1,14 +1,13 @@
 {
-    "server": "data-yy.cos8umbteiwm.eu-central-1.rds.amazonaws.com",
-    "user": "zajacjest",
-    "password": "szczurnakole",
-    "port": 1433,
-    "database": "data-y",
-    "options": {
-        "encrypt": false
-    },
-    "pool": {
-        "max": 100,
-        "min": 0
-    }
-}
+    "type": "service_account",
+    "project_id": "data-y6",
+    "private_key_id": "84df02ffb601f09984cab99eb2979b219a4563d1",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDWBDX6Nqe4u3Fo\n+LSWIDRsOwkvZExbJ0bib/LKf5dIijk/gEgEqZSm6bAR9Q7z9Y1fixyRoq46n8Ev\nF5jES9pqvVjUUXQeKE04gElGcgJwmmkVEExw20Qaxv73AvCO9e9j9XNdSQ0tQiTJ\nHTx0ux5Pdxr8zA9hXDycnQW7Ky6mtxTD0g1jX8g1tNMebRCzR0LIlNxqDZlLBQ8q\nPYmSt7nm9jsg9sU++fiav887XnZzijZBe9CSHoLqEviG+qUlYTUS8OT1+/hhydQ4\neZyhv6lY4oYP3hpjCQRtF+L4iNo+l7UrqbVIcK3+iQ7CfNWgemmquK4peXkKny0O\nTBbAuLLxAgMBAAECggEAIOR/yUeKKpXAffIvix1DAVlndX20UJQuTFIJXj8S6Ma5\nur1EFFdd7fNfqLrhw/P6+PK//tAieAcioVK+m3jPBnW4h9VHA/WMvMDWwjl2j4jj\n2qVpIjVI99aazCsK/uXkl5fbVbyLBmgykChqqMQzieIT50OTn5KWDDoD7frajiuw\nUjhYkTisbLU60+v5IPvIVhfbwZJqxQT93vYnPYjnB6jNOYo5jz4aVqsNASvPzQE4\ntqgLn7Va4pXFRxQJ8Eg73Lk6cn0A+QR8iBndbIxC5el7JY/6SogToN+MPoYwc6gm\nrvsb7qCQIPaBsC/A27MIdcpfeC1jTfFwN8wcUXJBUwKBgQDum5w7htN04Vzd6vwh\nYXD3ocRFNv1YfZxJTYeTzT1AtUGNHEtkGcikkfAJb+SeD4zPEGs8V5k5p14FIhAP\nS67rGbqJoXa3Bj51dbWH8sBLzPE+Hux9gJGLH+5KOVZ7BvKMdiU0c3X18jcnhcfF\nUhEYeXkcNL0bS7y0eXzGHtWqfwKBgQDlnbp1CqIqp5OBh7MKNeuO84VZ5gLjc7Xj\nFCeTciL3I+jI80LNzGLPhciZ26uiqpgdp4IantzNic2rygma1h8DiOxeAYoV1SWk\ndhObIpIkhaR5IdpsuLmGd9F9ctL8v31ZbXthlwqVpbNRZM1Vp4JPOiXoBm3EvAgr\n0dzfD4qKjwKBgGJF1OLvdMf+ybDcx1s4Nr7G8X9QVqfLlELcm6pULZYpEQZ9UM+5\njtm5AZPhcddnsCbYLFJ+Aa2tMRwMG3ExSqmpvxpQVgSrna3i/REw+eI+Vl2vftdx\nzH/wdsQ7OVMSWXNgdZJUu5DAYdb1UoICeugJn8fuMLS9TMtH/gvbR0UhAoGBAM+A\nV5UXs+8qGzIOSK0shyBbT6IrK2cTFUcN2qnzlkeTCvY2Z6OFVbJGKz9nddb9pZP+\n4aNe9xlDtDrPzRhA8iwGm9xkNb5/LZJPJm6msj0RDM5u2m4wDXDIbOeaUbMY9ZVQ\nTBSoI2eTI9alaq5CP4+Lc+AXlzEX36aB88Ec0U1fAoGAXc8/XUeYlmgtPr/gHhFb\nUhk7r/x5msp7bpD0lfrV/lfteXs/mksOh0jvlnrG4EQOnXs7cOYP6CdpBH3v8HLO\nUFDy5DsfnbUFMsILh0hfycwHtf15TSN5R9pd3+xe9CezC7lI4nlKF52jT/imCNfy\naeQMIfKD7wKrjfx4zGElndw=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-am07y@data-y6.iam.gserviceaccount.com",
+    "client_id": "112250449489538992989",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-am07y%40data-y6.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
