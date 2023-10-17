@@ -3,7 +3,9 @@
 const tajnyklucz = require("./rzeczy.json");
 //do logowania
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 //serwer połączenie
 var admin = require("firebase-admin");
 
@@ -30,17 +32,23 @@ const PORT = process.env.PORT || 3030;
 //wszystkie drogi prowadzą do mojej strony
 app.route('/')
   .all(function (req, res, next) {
-    baza.ref('artykuly').once('value', (snapshot) => {
-      const data = snapshot.val();
-      res.render('index', { title: 'Strona Główna', message: data });
-    })
-
+    res.render('index', { title: 'Strona Główna', message: "artykuły w przyszłości" });
   });
 
 app.get('/Logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
+
+app.get('/nowy', (req, res) => {
+  res.render('nowyrykul', { title: 'Nowy artykuł' });
+})
+  .post('/nowy', (req, res) => {
+    const { tytul, tresc } = req.body;
+    console.log(req.body);
+    res.render('nowyrykul', { title: 'Nowy artykuł' });
+  })
+  ;
 
 app.route('/Login')
   .all(function (req, res, next) {
