@@ -11,10 +11,15 @@ $fourthary-color: #2F2D2E;
     box-sizing: border-box;
 }
 
-form{
-    input{
-        margin: 12%;
-    }
+input{
+    border:none;
+    border-radius: 35px;
+}
+input:focus{
+    outline: $secondary-color groove 10px;
+}
+input:hover{
+    outline: $secondary-color groove 10px;
 }
 
 body {
@@ -47,18 +52,51 @@ footer {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     position: relative;
+    right: 0;
     bottom: 0;
+    left: 0;
     width: 100%;
-    height: 300px;
     background-color: $fourthary-color;
+    padding: 1%;
 }
 
 .login-div {
+    text-size-adjust: 10;
+    border:$primary-color 9px solid;
     border-radius: 25px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     background-color: $thirdary-color;
-    width: 30vw;
-    height: 30vh;
+    width: fit-content;
+    height: fit-content;
+
+    p{
+        padding: 3%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+        background-color: $secondary-color;
+        width: 30%;
+        border-radius: 45px;
+        color: $thirdary-color;
+    }
+    input {
+        padding: 5%;
+        width: 80%;
+        margin-top: 20%;
+    }
+    button:hover{
+        color: $thirdary-color;
+        background-color: $secondary-color; 
+    }
+    button{
+        border-radius: 45px;
+        padding: 5%;
+        color: white;
+        background-color: $primary-color;
+        border:none;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
 }

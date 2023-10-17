@@ -6,8 +6,17 @@
   box-sizing: border-box;
 }
 
-form input {
-  margin: 12%;
+input {
+  border: none;
+  border-radius: 35px;
+}
+
+input:focus {
+  outline: #183A37 groove 10px;
+}
+
+input:hover {
+  outline: #183A37 groove 10px;
 }
 
 body {
@@ -39,20 +48,52 @@ footer {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   position: relative;
+  right: 0;
   bottom: 0;
+  left: 0;
   width: 100%;
-  height: 300px;
   background-color: #2F2D2E;
+  padding: 1%;
 }
 
 .login-div {
+  text-size-adjust: 10;
+  border: #04151F 9px solid;
   border-radius: 25px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   background-color: #EFD6AC;
-  width: 30vw;
-  height: 30vh;
+  width: fit-content;
+  height: fit-content;
+}
+.login-div p {
+  padding: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  background-color: #183A37;
+  width: 30%;
+  border-radius: 45px;
+  color: #EFD6AC;
+}
+.login-div input {
+  padding: 5%;
+  width: 80%;
+  margin-top: 20%;
+}
+.login-div button:hover {
+  color: #EFD6AC;
+  background-color: #183A37;
+}
+.login-div button {
+  border-radius: 45px;
+  padding: 5%;
+  color: white;
+  background-color: #04151F;
+  border: none;
+  margin-top: 10%;
+  margin-bottom: 10%;
 }
 
 /*# sourceMappingURL=css.css.map */

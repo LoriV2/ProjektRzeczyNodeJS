@@ -19,6 +19,8 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                     a.nav-link(href='/Nartykuly') Najnowsze artyku&lstrok;y
                 li.nav-item
                     a.nav-link(href='/O nas') O nas
+                li.nav-item
+                    a.nav-link(href='/nowy') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     li.nav-item
@@ -27,13 +29,12 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                         a.nav-link(href='/Rejestracja') Rejestracja
 .container-lg.pojemnik
     div.login-div
-        | hej
-        form(action="/Login", method="post") 
-            input(type="text", name="username")
+        p= message
+        form(action="/Login" method="post") 
+            input(type="text" name="username")
+            input(type="password" name="password")
             br
-            input(type="password", name="password")
-            br
-            button(type="submit")
+            button(type="submit" value="submit")
                 | prześlij
 footer.container-fluid-lg
     | hej
