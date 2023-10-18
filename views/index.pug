@@ -28,9 +28,6 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                     li.nav-item
                         a.nav-link(href='/Rejestracja') Rejestracja
 .container-lg.pojemnik
-    script.
-        var jsonVariable = !{JSON.stringify(message)};
-        console.log(jsonVariable);
     ul
         each article, index in message
             if index !== 0

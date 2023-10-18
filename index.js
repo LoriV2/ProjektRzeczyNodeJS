@@ -2,21 +2,77 @@
 // Wczytaj dane z pliku .json
 const tajnyklucz = require("./rzeczy.json");
 //do logowania
+const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
 const crypto = require('crypto');
 //serwer połączenie
 var admin = require("firebase-admin");
-
-
 
 admin.initializeApp({
   credential: admin.credential.cert(tajnyklucz),
   databaseURL: "https://data-y6-default-rtdb.europe-west1.firebasedatabase.app"
 });;
 const baza = admin.database();
+
+passport.serializeUser((user, done) => {
+  // W user powinny znajdować się tylko informacje potrzebne do identyfikacji użytkownika w sesji
+  // Na przykład, jeśli user jest obiektem zawierającym ID użytkownika, możesz zrobić coś takiego:
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  // Tutaj będziesz miał dostęp do wartości ID zserializowanej wcześniej w sesji
+  // Na przykład, możesz pobrać użytkownika z bazy danych na podstawie tego ID
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(
+  (username, password, done) => {
+    baza.ref('uzytkownicy').orderByChild('login').equalTo(username).once('value', (cos) => {
+      if (cos.exists()) {
+        if ((crypto.createHash('sha256').update(password).digest('hex')) === (cos.val()[Object.keys(cos.val())[0]].haslo)) {
+          passport.serializeUser((user, done) => {
+            done(null, user.id);
+          });
+          return done(null, { id: Object.keys(cos.val())[0], message: cos.val().login, rola: cos.val().rola });
+        } else {
+          console.log("coś nie tak z hasłem");
+          return done(null, false, { message: 'Nieprawidłowe hasło' });
+        }
+      } else {
+        console.log("coś nie tak z loginem");
+        return done(null, false, { message: 'Nieprawidłowy login' });
+      }
+    })
+  }
+));
+
+app.use(session({
+  secret: crypto.randomBytes(32).toString('hex'), // Sekretny klucz dla sesji
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('views'));
+app.set('view engine', 'pug');
+app.use(flash());
+
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 async function Pytanie(baza, x, slowa) {
   return new Promise(async (resolve, reject) => {
@@ -57,10 +113,6 @@ async function Pytanie(baza, x, slowa) {
   });
 }
 
-app.use(express.json());
-app.use(express.static('views'));
-app.set('view engine', 'pug');
-
 const PORT = process.env.PORT || 3030;
 //wszystkie drogi prowadzą do mojej strony
 app.route('/')
@@ -89,11 +141,13 @@ app.get('/nowy', (req, res) => {
   });
 
 app.route('/Login')
+  .post(passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/Login',
+    failureFlash: true
+  }))
   .all(function (req, res, next) {
     res.render('login', { title: 'Logowanie', message: 'Zaloguj się!' });
-  })
-  .post(function (req, res, next) {
-    res.render('login', { title: 'Logowanie', message: 'Zalogowano' });
   });
 
 app.route('/Rejestracja')
