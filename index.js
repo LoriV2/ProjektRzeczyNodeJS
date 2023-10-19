@@ -19,17 +19,16 @@ admin.initializeApp({
 });;
 const baza = admin.database();
 
-passport.serializeUser((user, done) => {
-  // W user powinny znajdować się tylko informacje potrzebne do identyfikacji użytkownika w sesji
-  // Na przykład, jeśli user jest obiektem zawierającym ID użytkownika, możesz zrobić coś takiego:
-  done(null, user.id);
+passport.serializeUser(function (user, cb) {
+  console.log(user);
+  process.nextTick(function () {
+    cb(null, { id: user.id, username: user.username, rola: user.rola });
+  });
 });
 
-passport.deserializeUser((id, done) => {
-  // Tutaj będziesz miał dostęp do wartości ID zserializowanej wcześniej w sesji
-  // Na przykład, możesz pobrać użytkownika z bazy danych na podstawie tego ID
-  User.findById(id, (err, user) => {
-    done(err, user);
+passport.deserializeUser(function (user, cb) {
+  process.nextTick(function () {
+    return cb(null, user);
   });
 });
 
@@ -38,10 +37,7 @@ passport.use(new LocalStrategy(
     baza.ref('uzytkownicy').orderByChild('login').equalTo(username).once('value', (cos) => {
       if (cos.exists()) {
         if ((crypto.createHash('sha256').update(password).digest('hex')) === (cos.val()[Object.keys(cos.val())[0]].haslo)) {
-          passport.serializeUser((user, done) => {
-            done(null, user.id);
-          });
-          return done(null, { id: Object.keys(cos.val())[0], message: cos.val().login, rola: cos.val().rola });
+          return done(null, { id: Object.keys(cos.val())[0], username: cos.val()[Object.keys(cos.val())[0]].login, rola: cos.val()[Object.keys(cos.val())[0]].rola });
         } else {
           console.log("coś nie tak z hasłem");
           return done(null, false, { message: 'Nieprawidłowe hasło' });
@@ -61,18 +57,12 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate('session'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('views'));
 app.set('view engine', 'pug');
 app.use(flash());
-
-function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
 
 async function Pytanie(baza, x, slowa) {
   return new Promise(async (resolve, reject) => {
@@ -99,8 +89,19 @@ async function Pytanie(baza, x, slowa) {
           resolve("Pomyślnie zarejestrowano: " + slowa.login);
           break;
         case 3:
-          // Twoja logika dla przypadku 3
-          resolve("Odpowiedź dla przypadku 3");
+          console.log(slowa);
+          await baza.ref('artykuly').push({
+            data_publikacji: new Date().getTime(),
+            tresc: slowa.tresc,
+            tytul: slowa.tytul,
+            zdjc: slowa.zdjc
+          })
+          resolve("Pomyślnie dodano artykuł");
+          break;
+        case 4:
+          const snapshot2 = await baza.ref('artykuly').orderByChild('').equalTo(slowa.id).once('value');
+          const odpowiedz2 = snapshot2.val();
+          resolve(odpowiedz2);
           break;
         default:
           console.log("nie działa");
@@ -112,32 +113,65 @@ async function Pytanie(baza, x, slowa) {
     }
   });
 }
+function isAuth(req) {
+  if (req.session.passport !== undefined) {
+    id = req.session.passport.user.id;
+    username = req.session.passport.user.username;
+    rola = req.session.passport.user.rola;
+    return true;
+  } else {
+    id = "";
+    username = "";
+    rola = "";
+    return false;
+  }
 
+}
+let id = "";
+let username = "";
+let rola = "";
 const PORT = process.env.PORT || 3030;
 //wszystkie drogi prowadzą do mojej strony
 app.route('/')
   .all(function (req, res, next) {
     Pytanie(baza, 1, "aaa")
       .then((odpowiedz) => {
-        res.render('index', { title: 'Strona Główna', message: odpowiedz });
+        res.render('index', {
+          title: 'Strona Główna', message: odpowiedz, id, username, rola
+        });
       })
       .catch((error) => {
         res.render('index', { title: 'Strona Główna', message: "" });
         console.error("Błąd:", error);
       });
-
   });
 
-app.get('/Logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+app.get('/artykul', (req, res) => {
+  res.send(req.query);
 });
 
-app.get('/nowy', (req, res) => {
-  res.render('nowyrykul', { title: 'Nowy artykuł' });
-})
-  .post('/nowy', (req, res) => {
-    res.render('nowyrykul', { title: 'Nowy artykuł' });
+app.get('/Logout', (req, res) => {
+  req.logout(function (err) {
+    id = "";
+    username = "";
+    rola = "";
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
+
+app.route('/nowy')
+  .post(function (req, res, next) {
+    Pytanie(baza, 3, { id: id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, });
+    res.redirect('/nowy');
+  }
+  )
+  .all(function (req, res, next) {
+    if (isAuth(req) == true) {
+      res.render('nowyrykul', { title: 'Nowy artykuł' });
+    } else {
+      res.redirect('/Login');
+    }
   });
 
 app.route('/Login')

@@ -11,14 +11,20 @@ $fourthary-color: #2F2D2E;
     box-sizing: border-box;
 }
 
-input{
-    border:none;
+a {
+    text-decoration: none;
+}
+
+input {
+    border: none;
     border-radius: 35px;
 }
-input:focus{
+
+input:focus {
     outline: $secondary-color groove 10px;
 }
-input:hover{
+
+input:hover {
     outline: $secondary-color groove 10px;
 }
 
@@ -26,6 +32,10 @@ body {
     background-color: $secondary-color;
 }
 
+textarea {
+    margin-top: 10%;
+    width: 90%;
+}
 
 .zdjcrzeczy {
     border-radius: 20px;
@@ -62,7 +72,7 @@ footer {
 
 .login-div {
     text-size-adjust: 10;
-    border:$primary-color 9px solid;
+    border: $primary-color 9px solid;
     border-radius: 25px;
     text-align: center;
     margin-left: auto;
@@ -71,7 +81,7 @@ footer {
     width: fit-content;
     height: fit-content;
 
-    p{
+    p {
         padding: 3%;
         margin-left: auto;
         margin-right: auto;
@@ -81,21 +91,68 @@ footer {
         border-radius: 45px;
         color: $thirdary-color;
     }
+
     input {
         padding: 5%;
         width: 80%;
         margin-top: 20%;
     }
-    button:hover{
+
+    button:hover {
         color: $thirdary-color;
-        background-color: $secondary-color; 
+        background-color: $secondary-color;
     }
-    button{
+
+    button {
         border-radius: 45px;
         padding: 5%;
         color: white;
         background-color: $primary-color;
-        border:none;
+        border: none;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+}
+
+.artykul-div {
+    text-size-adjust: 10;
+    border: $primary-color 9px solid;
+    border-radius: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $thirdary-color;
+    width: 70%;
+    height: fit-content;
+
+    p {
+        padding: 3%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5%;
+        background-color: $secondary-color;
+        width: 80%;
+        border-radius: 45px;
+        color: $thirdary-color;
+    }
+
+    input {
+        padding: 5%;
+        width: 80%;
+        margin-top: 20%;
+    }
+
+    button:hover {
+        color: $thirdary-color;
+        background-color: $secondary-color;
+    }
+
+    button {
+        border-radius: 45px;
+        padding: 5%;
+        color: white;
+        background-color: $primary-color;
+        border: none;
         margin-top: 10%;
         margin-bottom: 10%;
     }

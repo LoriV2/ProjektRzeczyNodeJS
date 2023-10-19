@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 input {
   border: none;
   border-radius: 35px;
@@ -21,6 +25,11 @@ input:hover {
 
 body {
   background-color: #183A37;
+}
+
+textarea {
+  margin-top: 10%;
+  width: 90%;
 }
 
 .zdjcrzeczy {
@@ -87,6 +96,46 @@ footer {
   background-color: #183A37;
 }
 .login-div button {
+  border-radius: 45px;
+  padding: 5%;
+  color: white;
+  background-color: #04151F;
+  border: none;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.artykul-div {
+  text-size-adjust: 10;
+  border: #04151F 9px solid;
+  border-radius: 25px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #EFD6AC;
+  width: 70%;
+  height: fit-content;
+}
+.artykul-div p {
+  padding: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  background-color: #183A37;
+  width: 80%;
+  border-radius: 45px;
+  color: #EFD6AC;
+}
+.artykul-div input {
+  padding: 5%;
+  width: 80%;
+  margin-top: 20%;
+}
+.artykul-div button:hover {
+  color: #EFD6AC;
+  background-color: #183A37;
+}
+.artykul-div button {
   border-radius: 45px;
   padding: 5%;
   color: white;
