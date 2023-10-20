@@ -99,9 +99,10 @@ async function Pytanie(baza, x, slowa) {
           resolve("Pomyślnie dodano artykuł");
           break;
         case 4:
-          const snapshot2 = await baza.ref('artykuly').orderByChild('').equalTo(slowa.id).once('value');
-          const odpowiedz2 = snapshot2.val();
-          resolve(odpowiedz2);
+          await baza.ref('artykuly').child(slowa).once('value', (snapshot2) => {
+            const odpowiedz2 = snapshot2.val();
+            resolve(odpowiedz2);
+          });
           break;
         default:
           console.log("nie działa");
@@ -147,7 +148,14 @@ app.route('/')
   });
 
 app.get('/artykul', (req, res) => {
-  res.send(req.query);
+  Pytanie(baza, 4, req.query.nr)
+    .then((odpowiedz2) => {
+      res.render('artykul', { title: 'Artykuł' + odpowiedz2.tytul, message: odpowiedz2 });
+    })
+    .catch((error) => {
+      res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!' });
+      console.error("Błąd:", error);
+    });
 });
 
 app.get('/Logout', (req, res) => {

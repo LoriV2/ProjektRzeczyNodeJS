@@ -105,7 +105,52 @@ footer {
   margin-bottom: 10%;
 }
 
+.zdjc-art {
+  top: 0;
+  width: 100vw;
+  margin-left: 0;
+  z-index: -1;
+  position: relative;
+  margin-top: -20px;
+}
+.zdjc-art img {
+  z-index: -1;
+  margin-left: 0;
+  width: 100vw;
+}
+
+.artykul-div::before {
+  z-index: 4;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 299px;
+  top: 0;
+  /* Use your background color, assuming white: */
+  background-image: linear-gradient(to top, #183A37, rgba(255, 255, 255, 0));
+}
+
 .artykul-div {
+  border-radius: 20px;
+  padding-top: 50px;
+  overflow: auto;
+  border: 0 solid transparent;
+  text-align: center;
+  width: 100vw;
+  z-index: 1;
+  margin-top: -200px;
+  margin-bottom: 30vh;
+  background-color: #183A37;
+  color: #EFD6AC;
+}
+.artykul-div div {
+  margin-left: 10vw;
+  margin-right: 10vw;
+  text-align: center;
+}
+
+.artykul-form-div {
   text-size-adjust: 10;
   border: #04151F 9px solid;
   border-radius: 25px;
@@ -116,7 +161,7 @@ footer {
   width: 70%;
   height: fit-content;
 }
-.artykul-div p {
+.artykul-form-div p {
   padding: 3%;
   margin-left: auto;
   margin-right: auto;
@@ -126,16 +171,16 @@ footer {
   border-radius: 45px;
   color: #EFD6AC;
 }
-.artykul-div input {
+.artykul-form-div input {
   padding: 5%;
   width: 80%;
   margin-top: 20%;
 }
-.artykul-div button:hover {
+.artykul-form-div button:hover {
   color: #EFD6AC;
   background-color: #183A37;
 }
-.artykul-div button {
+.artykul-form-div button {
   border-radius: 45px;
   padding: 5%;
   color: white;

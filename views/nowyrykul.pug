@@ -34,14 +34,14 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                         li.nav-item
                             a.nav-link(href='/Rejestracja') Rejestracja
 .container-lg.pojemnik
-    div.artykul-div
+    div.artykul-form-div
         | hej
         form(action="/nowy" method="post") 
             p Wpisz tytuł artykułu
             input(type="text" name="tytul")
             br
             p Napisz treść artykułu
-            textarea(name="tresc" cols="30" rows="10")
+            textarea(name="tresc" cols="30" rows="10" minlenght="2101")
             br
             p Wpisz link do zdjęcia
             input(type="text" name="zdjc")

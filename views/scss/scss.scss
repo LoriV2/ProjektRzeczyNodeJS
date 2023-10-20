@@ -114,7 +114,52 @@ footer {
     }
 }
 
+.zdjc-art {
+    top: 0;
+    width: 100vw;
+    margin-left: 0;
+    z-index: -1;
+    position: relative;
+    margin-top: -20px;
+    img {
+        z-index: -1;
+        margin-left: 0;
+        width: 100vw;
+    }
+}
+
+.artykul-div::before {
+    z-index: 4;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 299px;
+    top: 0;
+    /* Use your background color, assuming white: */
+    background-image: linear-gradient(to top , $secondary-color, rgba(255, 255, 255, 0));
+}
+
 .artykul-div {
+    border-radius: 20px;
+    padding-top: 50px;
+    overflow: auto;
+    border: 0 solid transparent;
+    text-align: center;
+    width: 100vw;
+    z-index: 1;
+    margin-top: -200px;
+    margin-bottom: 30vh;
+    background-color: $secondary-color;
+    color: $thirdary-color;
+    div{
+        margin-left: 10vw;
+        margin-right: 10vw;
+        text-align: center;
+    }
+}
+
+.artykul-form-div {
     text-size-adjust: 10;
     border: $primary-color 9px solid;
     border-radius: 25px;
