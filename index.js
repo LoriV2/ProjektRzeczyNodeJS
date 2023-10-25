@@ -89,12 +89,15 @@ async function Pytanie(baza, x, slowa) {
           resolve("Pomyślnie zarejestrowano: " + slowa.login);
           break;
         case 3:
+          //nowy artykuł
           console.log(slowa);
           await baza.ref('artykuly').push({
             data_publikacji: new Date().getTime(),
             tresc: slowa.tresc,
             tytul: slowa.tytul,
-            zdjc: slowa.zdjc
+            zdjc: slowa.zdjc,
+            chmurki: { ilosc: 0, kto: ["ktosid"], },
+            slonca: { ilosc: 0, kto: ["ktosid"], }
           })
           resolve("Pomyślnie dodano artykuł");
           break;
@@ -137,25 +140,34 @@ app.route('/')
   .all(function (req, res, next) {
     Pytanie(baza, 1, "aaa")
       .then((odpowiedz) => {
+        isAuth(req);
         res.render('index', {
           title: 'Strona Główna', message: odpowiedz, id, username, rola
         });
       })
       .catch((error) => {
+        isAuth(req);
         res.render('index', { title: 'Strona Główna', message: "" });
         console.error("Błąd:", error);
       });
   });
 
 app.get('/artykul', (req, res) => {
-  Pytanie(baza, 4, req.query.nr)
-    .then((odpowiedz2) => {
-      res.render('artykul', { title: 'Artykuł' + odpowiedz2.tytul, message: odpowiedz2 });
-    })
-    .catch((error) => {
-      res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!' });
-      console.error("Błąd:", error);
-    });
+  if (req.query.nr != undefined) {
+    Pytanie(baza, 4, req.query.nr)
+      .then((odpowiedz2) => {
+        isAuth(req);
+        res.render('artykul', { title: 'Artykuł' + odpowiedz2.tytul, message: odpowiedz2, id, username, rola, doprzycisku: req.query.nr });
+      })
+      .catch((error) => {
+        isAuth(req);
+        res.redirect('/');
+        console.error("Błąd:", error);
+      });
+  } else {
+    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', id, username, rola });
+  }
+
 });
 
 app.get('/Logout', (req, res) => {
@@ -175,8 +187,8 @@ app.route('/nowy')
   }
   )
   .all(function (req, res, next) {
-    if (isAuth(req) == true) {
-      res.render('nowyrykul', { title: 'Nowy artykuł' });
+    if ((isAuth(req) == true)) {
+      res.render('nowyrykul', { title: 'Nowy artykuł', id, username, rola });
     } else {
       res.redirect('/Login');
     }
@@ -209,16 +221,19 @@ app.route('/Rejestracja')
 
 app.route('/Nartykuly')
   .all(function (req, res, next) {
-    res.render('Narykuly', { title: 'Najnowsze artykuły', message: 'Hello there!' });
+    isAuth(req);
+    res.render('Narykuly', { title: 'Najnowsze artykuły', message: 'Hello there!', id, username, rola });
   });
 
 
 app.use((req, res, next) => {
+  isAuth(req);
   res.status(404).send("Nie ma czegoś takiego!")
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
+  console.error(err.stack);
+  isAuth(req);
   res.status(500).send('Coś sie popsuło!!!')
 });
 

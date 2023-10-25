@@ -21,6 +21,12 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                     a.nav-link(href='/O nas') O nas
                 li.nav-item
                     a.nav-link(href='/nowy') Nowy artykuł
+                li.nav-item
+                    a.nav-link(href='')
+                form(action="/szukaj" method="post").d-flex  
+                    input(type="text" placeholder="szukaj artykułu").form-control.me-2
+                    button(type="submit").btn.btn-outline-success
+                        | szukaj
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     if id != ""
@@ -33,7 +39,9 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                             a.nav-link.active(aria-current='page' href='/Login') Login
                         li.nav-item
                             a.nav-link(href='/Rejestracja') Rejestracja
-
+h1.indexten
+    | 4 Najnowsze artykuły!
+    br
 div.container-lg.pojemnik.row.row-cols-1.row-cols-md-2.g-4
     each article, index in message
         if index !== 0

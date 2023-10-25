@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+.inputwnav {
+  margin-left: 2%;
+}
+
 a {
   text-decoration: none;
 }
@@ -32,6 +36,63 @@ textarea {
   width: 90%;
 }
 
+.indexten {
+  text-align: center;
+  color: #EFD6AC;
+}
+
+.chmurkaislonce {
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  margin-bottom: 10%;
+}
+.chmurkaislonce .emoji-large {
+  font-size: 100px;
+}
+.chmurkaislonce button {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  margin-left: 2%;
+  margin-right: 2%;
+  line-height: 2;
+  width: 10%;
+}
+.chmurkaislonce .chmurka:hover {
+  border: #EFD6AC 1px solid;
+  background-image: url("https://i.imgur.com/wcFzDaz.png");
+}
+.chmurkaislonce .slonce:hover {
+  border: #EFD6AC 1px solid;
+  background-image: url("https://teraz.com.pl/vardata/gify/kotki/kotki076.gif");
+}
+
+.form-komentarz {
+  color: #EFD6AC;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 4%;
+}
+.form-komentarz button {
+  background-color: #04151F;
+  color: #183A37;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+}
+.form-komentarz button:hover {
+  background-color: #EFD6AC;
+  color: #04151F;
+}
+.form-komentarz textarea {
+  border: none;
+  padding: 10px;
+  border-radius: 35px;
+  background-color: #04151F;
+  color: #EFD6AC;
+}
+
 .zdjcrzeczy {
   border-radius: 20px;
   width: 100%;
@@ -40,6 +101,8 @@ textarea {
 .pojemnik {
   margin-top: 10vh;
   margin-bottom: 30vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 nav {
@@ -107,7 +170,6 @@ footer {
 
 .zdjc-art {
   top: 0;
-  width: 100vw;
   margin-left: 0;
   z-index: -1;
   position: relative;
@@ -116,7 +178,7 @@ footer {
 .zdjc-art img {
   z-index: -1;
   margin-left: 0;
-  width: 100vw;
+  width: 100%;
 }
 
 .artykul-div::before {
@@ -126,18 +188,20 @@ footer {
   left: 0;
   right: 0;
   height: 299px;
+  width: 100%;
   top: 0;
   /* Use your background color, assuming white: */
   background-image: linear-gradient(to top, #183A37, rgba(255, 255, 255, 0));
 }
 
 .artykul-div {
+  top: 0;
   border-radius: 20px;
   padding-top: 50px;
   overflow: auto;
   border: 0 solid transparent;
   text-align: center;
-  width: 100vw;
+  width: 100%;
   z-index: 1;
   margin-top: -200px;
   margin-bottom: 30vh;
@@ -155,30 +219,30 @@ footer {
   border: #04151F 9px solid;
   border-radius: 25px;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #EFD6AC;
-  width: 70%;
+  width: 100%;
   height: fit-content;
 }
-.artykul-form-div p {
-  padding: 3%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-  background-color: #183A37;
-  width: 80%;
-  border-radius: 45px;
-  color: #EFD6AC;
+.artykul-form-div .powiadomienie {
+  color: red;
 }
 .artykul-form-div input {
-  padding: 5%;
-  width: 80%;
-  margin-top: 20%;
+  padding: 1%;
+  width: fit-content;
 }
 .artykul-form-div button:hover {
   color: #EFD6AC;
+  background-color: #2F2D2E;
+}
+.artykul-form-div textarea:focus {
+  border: none;
+}
+.artykul-form-div textarea {
+  width: 100%;
+  height: 100%;
+  text-align: center;
   background-color: #183A37;
+  color: #EFD6AC;
+  border: #04151F 2px solid;
 }
 .artykul-form-div button {
   border-radius: 45px;
@@ -186,7 +250,6 @@ footer {
   color: white;
   background-color: #04151F;
   border: none;
-  margin-top: 10%;
   margin-bottom: 10%;
 }
 
