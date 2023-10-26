@@ -128,6 +128,31 @@ footer {
   padding: 1%;
 }
 
+.komentarze {
+  background-color: #04151F;
+  color: #EFD6AC;
+  width: 100%;
+  padding: 1%;
+  text-align: left;
+  border-radius: 25px;
+  margin-bottom: 2%;
+}
+.komentarze .komentarz {
+  border: solid 1px #EFD6AC;
+  margin: 2%;
+  border-radius: 12px;
+  width: 40%;
+}
+.komentarze .komentarz .data_dodania {
+  text-align: center;
+}
+.komentarze .komentarz .autor_komentarza {
+  text-align: center;
+}
+.komentarze .komentarz .tresc_komentarza {
+  text-align: left;
+}
+
 .login-div {
   text-size-adjust: 10;
   border: #04151F 9px solid;

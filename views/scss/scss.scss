@@ -140,6 +140,33 @@ footer {
     padding: 1%;
 }
 
+.komentarze {
+    background-color: $primary-color;
+    color: $thirdary-color;
+    width: 100%;
+    padding: 1%;
+    text-align: left;
+    border-radius: 25px;
+    margin-bottom: 2%;
+    .komentarz {
+        border: solid 1px $thirdary-color;
+        margin: 2%;
+        border-radius: 12px;
+        width: 40%;
+        .data_dodania {
+            text-align: center;
+        }
+
+        .autor_komentarza {
+            text-align: center;
+        }
+
+        .tresc_komentarza {
+            text-align: left;
+        }
+    }
+}
+
 .login-div {
     text-size-adjust: 10;
     border: $primary-color 9px solid;
