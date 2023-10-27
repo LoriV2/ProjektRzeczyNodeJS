@@ -74,6 +74,12 @@ async function Pytanie(baza, x, slowa) {
           const odpowiedz = snapshot.val();
           resolve(odpowiedz);
           break;
+        case 6:
+          //strona główna
+          const snapshot5 = await baza.ref('artykuly').orderByChild('data_publikacji').once('value');
+          const odpowiedz5 = snapshot5.val();
+          resolve(odpowiedz5);
+          break;
         case 2:
           //rejestracja
           await baza.ref('uzytkownicy').orderByChild('login').equalTo(slowa.login).once('value', (cos) => {
@@ -195,7 +201,7 @@ app.get('/artykul', (req, res) => {
     Pytanie(baza, 4, req.query.nr)
       .then((odpowiedz) => {
         isAuth(req);
-        res.render('artykul', { title: 'Artykuł' + odpowiedz.tytul, message: odpowiedz, id, username, rola, doprzycisku: req.query.nr, komentarze: odpowiedz.komentarze });
+        res.render('artykul', { title: odpowiedz.tytul_art, message: odpowiedz, id, username, rola, doprzycisku: req.query.nr, komentarze: odpowiedz.komentarze });
       })
       .catch((error) => {
         isAuth(req);
@@ -275,7 +281,16 @@ app.route('/Rejestracja')
 app.route('/Nartykuly')
   .all(function (req, res, next) {
     isAuth(req);
-    res.render('Narykuly', { title: 'Najnowsze artykuły', message: 'Hello there!', id, username, rola });
+    Pytanie(baza, 6, "")
+      .then((odpowiedz) => {
+        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, id, username, rola, id });
+      }).catch((error) => {
+        res.render('index', {
+          title: 'Strona Główna', message: odpowiedz, id, username, rola
+        });
+        console.error("Błąd:", error);
+      });
+
   });
 
 //jeśli nie znajdzie strony

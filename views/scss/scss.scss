@@ -11,6 +11,18 @@ $fourthary-color: #2F2D2E;
     box-sizing: border-box;
 }
 
+.przyciski_sort{
+    text-align: center;
+    button{
+        background-color: $primary-color;
+        color:$thirdary-color;
+        margin: 2%;
+        border: none;
+        border-radius: 25px;
+        padding: 10px;
+    }
+}
+
 .inputwnav {
     margin-left: 2%;
 }
@@ -62,8 +74,6 @@ textarea {
         border: none;
         margin-left: 2%;
         margin-right: 2%;
-        line-height: 2;
-        width: 10%;
     }
 
     .chmurka:hover {
@@ -97,6 +107,7 @@ textarea {
     }
 
     textarea {
+        max-height: 100px;
         border: none;
         padding: 10px;
         border-radius: 35px;
@@ -147,12 +158,12 @@ footer {
     padding: 1%;
     text-align: left;
     border-radius: 25px;
-    margin-bottom: 2%;
+    margin-bottom: 10%;
     .komentarz {
         border: solid 1px $thirdary-color;
         margin: 2%;
         border-radius: 12px;
-        width: 40%;
+        width: 30%;
         .data_dodania {
             text-align: center;
         }
@@ -162,6 +173,7 @@ footer {
         }
 
         .tresc_komentarza {
+            padding: 2%;
             text-align: left;
         }
     }
@@ -235,6 +247,7 @@ footer {
     height: 299px;
     width: 100%;
     top: 0;
+    margin-bottom: 2%;
     /* Use your background color, assuming white: */
     background-image: linear-gradient(to top, $secondary-color, rgba(255, 255, 255, 0));
 }
