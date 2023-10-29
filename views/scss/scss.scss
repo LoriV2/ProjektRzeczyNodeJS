@@ -1,21 +1,38 @@
-$primary-color: #04151F;
-$secondary-color: #183A37;
-$thirdary-color: #EFD6AC;
-$fourthary-color: #2F2D2E;
+$primary-color: #183342;
+$secondary-color: #338a82;
+$thirdary-color: #5dc7a4;
+$fourthary-color: #38041e;
 
 *,
 *::before,
 *::after {
+    font-family: Brush Script MT;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.przyciski_sort{
+.kreska_parent {
+    text-align: -webkit-center;
+    width: 100%;
+}
+
+.kreska {
     text-align: center;
-    button{
+    border-radius: 25%;
+    height: 4px;
+    background-color: $primary-color;
+    width: 50%;
+    margin-top: 2px;
+    margin-bottom: 6%;
+}
+
+.przyciski_sort {
+    text-align: center;
+
+    button {
         background-color: $primary-color;
-        color:$thirdary-color;
+        color: $thirdary-color;
         margin: 2%;
         border: none;
         border-radius: 25px;
@@ -78,12 +95,13 @@ textarea {
 
     .chmurka:hover {
         border: $thirdary-color 1px solid;
-        background-image: url('https://i.imgur.com/wcFzDaz.png');
+        background-image: url('https://i.imgur.com/N5JUANZ.png');
     }
 
     .slonce:hover {
         border: $thirdary-color 1px solid;
         background-image: url('https://teraz.com.pl/vardata/gify/kotki/kotki076.gif');
+        background-repeat: no-repeat;
     }
 }
 
@@ -92,6 +110,11 @@ textarea {
     width: 100%;
     text-align: center;
     margin-bottom: 4%;
+
+    .powiadomienie {
+        color: rgb(122, 0, 0);
+        text-wrap: 10;
+    }
 
     button {
         background-color: $primary-color;
@@ -134,21 +157,41 @@ nav {
     background-color: $primary-color;
 }
 
+
 .card {
     border-radius: 20px;
     background-color: $thirdary-color;
+    color: $primary-color;
 }
 
 footer {
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    position: relative;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     background-color: $fourthary-color;
-    padding: 1%;
+    color: $secondary-color;
+    padding: 20px 0;
+    text-align: center;
+    border-top-right-radius: 35px;
+    border-top-left-radius: 35px;
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer-logo img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+
+    .footer-info p {
+        margin: 5px 0;
+    }
+
+    .footer-info a {
+        color: $thirdary-color;
+        text-decoration: none;
+    }
 }
 
 .komentarze {
@@ -159,11 +202,13 @@ footer {
     text-align: left;
     border-radius: 25px;
     margin-bottom: 10%;
+
     .komentarz {
         border: solid 1px $thirdary-color;
         margin: 2%;
         border-radius: 12px;
         width: 30%;
+
         .data_dodania {
             text-align: center;
         }
@@ -262,7 +307,7 @@ footer {
     width: 100%;
     z-index: 1;
     margin-top: -200px;
-    margin-bottom: 30vh;
+    margin-bottom: 20vh;
     background-color: $secondary-color;
     color: $thirdary-color;
 

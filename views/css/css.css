@@ -1,17 +1,33 @@
 *,
 *::before,
 *::after {
+  font-family: Brush Script MT;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.kreska_parent {
+  text-align: -webkit-center;
+  width: 100%;
+}
+
+.kreska {
+  text-align: center;
+  border-radius: 25%;
+  height: 4px;
+  background-color: #183342;
+  width: 50%;
+  margin-top: 2px;
+  margin-bottom: 6%;
 }
 
 .przyciski_sort {
   text-align: center;
 }
 .przyciski_sort button {
-  background-color: #04151F;
-  color: #EFD6AC;
+  background-color: #183342;
+  color: #5dc7a4;
   margin: 2%;
   border: none;
   border-radius: 25px;
@@ -32,15 +48,15 @@ input {
 }
 
 input:focus {
-  outline: #183A37 groove 10px;
+  outline: #338a82 groove 10px;
 }
 
 input:hover {
-  outline: #183A37 groove 10px;
+  outline: #338a82 groove 10px;
 }
 
 body {
-  background-color: #183A37;
+  background-color: #338a82;
 }
 
 textarea {
@@ -50,7 +66,7 @@ textarea {
 
 .indexten {
   text-align: center;
-  color: #EFD6AC;
+  color: #5dc7a4;
 }
 
 .chmurkaislonce {
@@ -70,38 +86,43 @@ textarea {
   margin-right: 2%;
 }
 .chmurkaislonce .chmurka:hover {
-  border: #EFD6AC 1px solid;
-  background-image: url("https://i.imgur.com/wcFzDaz.png");
+  border: #5dc7a4 1px solid;
+  background-image: url("https://i.imgur.com/N5JUANZ.png");
 }
 .chmurkaislonce .slonce:hover {
-  border: #EFD6AC 1px solid;
+  border: #5dc7a4 1px solid;
   background-image: url("https://teraz.com.pl/vardata/gify/kotki/kotki076.gif");
+  background-repeat: no-repeat;
 }
 
 .form-komentarz {
-  color: #EFD6AC;
+  color: #5dc7a4;
   width: 100%;
   text-align: center;
   margin-bottom: 4%;
 }
+.form-komentarz .powiadomienie {
+  color: rgb(122, 0, 0);
+  text-wrap: 10;
+}
 .form-komentarz button {
-  background-color: #04151F;
-  color: #183A37;
+  background-color: #183342;
+  color: #338a82;
   border: none;
   border-radius: 25px;
   padding: 10px;
 }
 .form-komentarz button:hover {
-  background-color: #EFD6AC;
-  color: #04151F;
+  background-color: #5dc7a4;
+  color: #183342;
 }
 .form-komentarz textarea {
   max-height: 100px;
   border: none;
   padding: 10px;
   border-radius: 35px;
-  background-color: #04151F;
-  color: #EFD6AC;
+  background-color: #183342;
+  color: #5dc7a4;
 }
 
 .zdjcrzeczy {
@@ -119,29 +140,44 @@ textarea {
 nav {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  background-color: #04151F;
+  background-color: #183342;
 }
 
 .card {
   border-radius: 20px;
-  background-color: #EFD6AC;
+  background-color: #5dc7a4;
+  color: #183342;
 }
 
 footer {
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  position: relative;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #2F2D2E;
-  padding: 1%;
+  background-color: #38041e;
+  color: #338a82;
+  padding: 20px 0;
+  text-align: center;
+  border-top-right-radius: 35px;
+  border-top-left-radius: 35px;
+}
+footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .footer-logo img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+footer .footer-info p {
+  margin: 5px 0;
+}
+footer .footer-info a {
+  color: #5dc7a4;
+  text-decoration: none;
 }
 
 .komentarze {
-  background-color: #04151F;
-  color: #EFD6AC;
+  background-color: #183342;
+  color: #5dc7a4;
   width: 100%;
   padding: 1%;
   text-align: left;
@@ -149,7 +185,7 @@ footer {
   margin-bottom: 10%;
 }
 .komentarze .komentarz {
-  border: solid 1px #EFD6AC;
+  border: solid 1px #5dc7a4;
   margin: 2%;
   border-radius: 12px;
   width: 30%;
@@ -167,12 +203,12 @@ footer {
 
 .login-div {
   text-size-adjust: 10;
-  border: #04151F 9px solid;
+  border: #183342 9px solid;
   border-radius: 25px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  background-color: #EFD6AC;
+  background-color: #5dc7a4;
   width: fit-content;
   height: fit-content;
 }
@@ -181,10 +217,10 @@ footer {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10%;
-  background-color: #183A37;
+  background-color: #338a82;
   width: 30%;
   border-radius: 45px;
-  color: #EFD6AC;
+  color: #5dc7a4;
 }
 .login-div input {
   padding: 5%;
@@ -192,14 +228,14 @@ footer {
   margin-top: 20%;
 }
 .login-div button:hover {
-  color: #EFD6AC;
-  background-color: #183A37;
+  color: #5dc7a4;
+  background-color: #338a82;
 }
 .login-div button {
   border-radius: 45px;
   padding: 5%;
   color: white;
-  background-color: #04151F;
+  background-color: #183342;
   border: none;
   margin-top: 10%;
   margin-bottom: 10%;
@@ -229,7 +265,7 @@ footer {
   top: 0;
   margin-bottom: 2%;
   /* Use your background color, assuming white: */
-  background-image: linear-gradient(to top, #183A37, rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to top, #338a82, rgba(255, 255, 255, 0));
 }
 
 .artykul-div {
@@ -242,9 +278,9 @@ footer {
   width: 100%;
   z-index: 1;
   margin-top: -200px;
-  margin-bottom: 30vh;
-  background-color: #183A37;
-  color: #EFD6AC;
+  margin-bottom: 20vh;
+  background-color: #338a82;
+  color: #5dc7a4;
 }
 .artykul-div div {
   margin-left: 10vw;
@@ -254,7 +290,7 @@ footer {
 
 .artykul-form-div {
   text-size-adjust: 10;
-  border: #04151F 9px solid;
+  border: #183342 9px solid;
   border-radius: 25px;
   text-align: center;
   width: 100%;
@@ -268,8 +304,8 @@ footer {
   width: fit-content;
 }
 .artykul-form-div button:hover {
-  color: #EFD6AC;
-  background-color: #2F2D2E;
+  color: #5dc7a4;
+  background-color: #38041e;
 }
 .artykul-form-div textarea:focus {
   border: none;
@@ -278,15 +314,15 @@ footer {
   width: 100%;
   height: 100%;
   text-align: center;
-  background-color: #183A37;
-  color: #EFD6AC;
-  border: #04151F 2px solid;
+  background-color: #338a82;
+  color: #5dc7a4;
+  border: #183342 2px solid;
 }
 .artykul-form-div button {
   border-radius: 45px;
   padding: 5%;
   color: white;
-  background-color: #04151F;
+  background-color: #183342;
   border: none;
   margin-bottom: 10%;
 }

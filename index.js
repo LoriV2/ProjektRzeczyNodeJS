@@ -1,5 +1,6 @@
 //pliki!!
 // Wczytaj dane z pliku .json
+const Pytanie = require('./DatabaseHandl.js');
 const tajnyklucz = require("./rzeczy.json");
 //do logowania
 const flash = require('connect-flash');
@@ -64,99 +65,7 @@ app.use(express.static('views'));
 app.set('view engine', 'pug');
 app.use(flash());
 
-async function Pytanie(baza, x, slowa) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      switch (x) {
-        case 1:
-          //strona główna
-          const snapshot = await baza.ref('artykuly').orderByChild('data_publikacji').limitToLast(4).once('value');
-          const odpowiedz = snapshot.val();
-          resolve(odpowiedz);
-          break;
-        case 6:
-          //strona główna
-          const snapshot5 = await baza.ref('artykuly').orderByChild('data_publikacji').once('value');
-          const odpowiedz5 = snapshot5.val();
-          resolve(odpowiedz5);
-          break;
-        case 2:
-          //rejestracja
-          await baza.ref('uzytkownicy').orderByChild('login').equalTo(slowa.login).once('value', (cos) => {
-            if (cos.exists()) {
-              resolve("Użytkownik o loginie: " + slowa.login + " już istnieje");
-            } else {
-              baza.ref('uzytkownicy').push({
-                rola: "użytkownik",
-                login: slowa.login,
-                haslo: crypto.createHash('sha256').update(slowa.haslo).digest('hex'),
-                data_dolaczenia: new Date().getTime()
-              });
-            }
-          })
-          resolve("Pomyślnie zarejestrowano: " + slowa.login);
-          break;
-        case 3:
-          //nowy artykuł
-          await baza.ref('artykuly').push({
-            data_publikacji: new Date().getTime(),
-            tresc: slowa.tresc,
-            tytul: slowa.tytul,
-            zdjc: slowa.zdjc,
-            chmurki: { ilosc: 0, kto: ["ktosid"], },
-            slonca: { ilosc: 0, kto: ["ktosid"], }
-          })
-          resolve("Pomyślnie dodano artykuł");
-          break;
-        case 4:
-          //wczytaj artykuł
-          let odpowiedzostateczna =
-          {
-            tytul_art: "",
-            data_dodania_art: "",
-            tresc: "",
-            zdjc: "",
-            autor_art: "",
-            chmurki: 0,
-            slonca: 0,
-            komentarze: {},
-          };
-          await baza.ref('komentarze').orderByChild('artykul').equalTo(slowa).once('value', (snapshot3) => {
-            const odpowiedz3 = snapshot3.val();
-            odpowiedzostateczna.komentarze = odpowiedz3;
-          })
-          await baza.ref('artykuly').child(slowa).once('value', (snapshot2) => {
 
-            const odpowiedz2 = snapshot2.val();
-            odpowiedzostateczna.tytul_art = odpowiedz2.tytul;
-            odpowiedzostateczna.data_dodania_art = odpowiedz2.data_publikacji;
-            odpowiedzostateczna.tresc = odpowiedz2.tresc;
-            odpowiedzostateczna.zdjc = odpowiedz2.zdjc;
-            odpowiedzostateczna.chmurki = odpowiedz2.chmurki;
-            odpowiedzostateczna.slonca = odpowiedz2.slonca;
-            console.log(odpowiedzostateczna);
-            resolve(odpowiedzostateczna);
-          });
-          break;
-        case 5:
-          //dodawanie komentarzy
-          await baza.ref('komentarze').push({
-            artykul: slowa.link,
-            tresc: slowa.komentarz,
-            autor: slowa.autor,
-            data_dodania: new Date().getTime(),
-          })
-          break;
-        default:
-          console.log("nie działa");
-          reject("Nieprawidłowy numer przypadku");
-          break;
-      }
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
 function isAuth(req) {
   if (req.session.passport !== undefined) {
     id = req.session.passport.user.id;
@@ -171,6 +80,7 @@ function isAuth(req) {
   }
 
 }
+let artid;
 let id = "";
 let username = "";
 let rola = "";
@@ -197,11 +107,30 @@ app.route('/')
 
 //droga do artykułów
 app.get('/artykul', (req, res) => {
-  if (req.query.nr != undefined) {
-    Pytanie(baza, 4, req.query.nr)
+  if ((req.query.nr != undefined) || (req.query.slonce != undefined) || (req.query.chmurka != undefined)) {
+    artid = req.query.nr || req.query.slonce || req.query.chmurka;
+    console.log(artid, "artid");
+    Pytanie(baza, 4, artid)
       .then((odpowiedz) => {
         isAuth(req);
-        res.render('artykul', { title: odpowiedz.tytul_art, message: odpowiedz, id, username, rola, doprzycisku: req.query.nr, komentarze: odpowiedz.komentarze });
+        dane_do_wyslania =
+        {
+          liczba:
+          {
+            slonce: odpowiedz.slonca,
+            chmurka: odpowiedz.chmurki
+          },
+          data_dodania: odpowiedz.data_dodania_art,
+          title: odpowiedz.tytul_art,
+          message: odpowiedz,
+          gdzie: artid,
+          id,
+          username,
+          rola,
+          doprzycisku: req.query.nr,
+          komentarze: odpowiedz.komentarze
+        }
+        res.render('artykul', dane_do_wyslania);
       })
       .catch((error) => {
         isAuth(req);
@@ -214,16 +143,21 @@ app.get('/artykul', (req, res) => {
 
 });
 
-//żeby się wylogować
+//żeby dodać komentarz
 app.post('/Komentarz', (req, res) => {
-  let link = req.headers.referer;
-  let pozycja = link.search(/nr/);
-  link = link.slice(pozycja + 3);
-  Pytanie(baza, 5, { "komentarz": req.body.komentarz, "autor": username, link }).then(
-    res.redirect(req.headers.referer)
-  )
+  console.log(req.body.gdzie);
+  return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: username, link: req.body.gdzie });
 });
 
+//zwiększa liczbę chmurek bądź słońc
+app.post('/zwiekszLiczbe', (req, res) => {
+  return Pytanie(baza, 7, { gdzie: req.body.gdzie, co: req.body.rodzaj });
+});
+
+//robi przeciwnie do poprzedniego
+app.post('/zmniejszLiczbe', (req, res) => {
+  return Pytanie(baza, 8, { gdzie: req.body.gdzie, co: req.body.rodzaj });
+});
 
 //żeby się wylogować
 app.get('/Logout', (req, res) => {
@@ -250,6 +184,7 @@ app.route('/nowy')
       res.redirect('/Login');
     }
   });
+
 //logowanie
 app.route('/Login')
   .post(passport.authenticate('local', {
@@ -277,7 +212,7 @@ app.route('/Rejestracja')
     res.render('register', { title: 'Rejestracja', message: 'Zarejestruj się!' });
   });
 
-//W trakcie tworzenia
+//Pokazuje wszystkie artykuły
 app.route('/Nartykuly')
   .all(function (req, res, next) {
     isAuth(req);
