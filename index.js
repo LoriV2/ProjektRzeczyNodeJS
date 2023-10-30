@@ -27,7 +27,6 @@ admin.initializeApp({
 const baza = admin.database();
 
 passport.serializeUser(function (user, cb) {
-  console.log(user);
   process.nextTick(function () {
     id = user.id;
     username = user.username;
@@ -49,11 +48,9 @@ passport.use(new LocalStrategy(
         if ((crypto.createHash('sha256').update(password).digest('hex')) === (cos.val()[Object.keys(cos.val())[0]].haslo)) {
           return done(null, { id: Object.keys(cos.val())[0], username: cos.val()[Object.keys(cos.val())[0]].login, rola: cos.val()[Object.keys(cos.val())[0]].rola });
         } else {
-          console.log("coś nie tak z hasłem");
           return done(null, false, { message: 'Nieprawidłowe hasło' });
         }
       } else {
-        console.log("coś nie tak z loginem");
         return done(null, false, { message: 'Nieprawidłowy login' });
       }
     })
@@ -79,9 +76,6 @@ function isAuth(req) {
   if (req.session.passport !== undefined) {
     return true;
   } else {
-    id = "";
-    username = "";
-    rola = "";
     return false;
   }
 }
@@ -112,7 +106,6 @@ app.route('/')
 app.get('/artykul', (req, res) => {
   if ((req.query.nr != undefined) || (req.query.slonce != undefined) || (req.query.chmurka != undefined)) {
     artid = req.query.nr || req.query.slonce || req.query.chmurka;
-    console.log(artid, "artid");
     Pytanie(baza, 4, artid)
       .then((odpowiedz) => {
         isAuth(req);
@@ -151,7 +144,6 @@ app.get('/artykul', (req, res) => {
 
 //żeby dodać komentarz
 app.post('/Komentarz', (req, res) => {
-  console.log(req.body.gdzie);
   return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: username, link: req.body.gdzie });
 });
 
