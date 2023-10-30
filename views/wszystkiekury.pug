@@ -3,7 +3,6 @@ head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title= title
-    script(src='/skrypty/skrypt.js')
     link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
     link(rel='stylesheet' href='css/css.css')
 nav.navbar.navbar-expand-lg.position-sticky(data-bs-theme='dark')
@@ -37,26 +36,42 @@ nav.navbar.navbar-expand-lg.position-sticky(data-bs-theme='dark')
 h1.indexten
     | Wszystkie artykuły!
     br
-div.przyciski_sort_container
-    div.przyciski_sort
-        //▼▲
-        button(type="button") Data
-        //▼▲
-        button(type="button") Słońca
-        input(type="text" name="" placeholder="wpisz tagi bądź tytuł")
-div.kreska_parent
-    div.kreska
-div.container-lg.pojemnik.row.row-cols-1.row-cols-md-4.g-4
-    each article, index in message
-        if index !== 0
-            .col
-                a(href="/artykul?nr=" + index) 
-                    .card
-                        img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
-                        .card-body
-                            h5.card-title.text-center.text-truncate= article.tytul
-                            p.card-text.text-truncate= article.tresc
+div(id="lista")
+    div.przyciski_sort_container
+        div.przyciski_sort
+            //▼▲
+            button(type="button" data-sort="data").sort Data
+            //▼▲
+            button(type="button" data-sort="slonca").sort Słońca
+            button(type="button" data-sort="chmurki").sort Chmury
+            input(type="text" placeholder="Wpisz tagi bądź tytuł").search
+    div.kreska_parent
+        div.kreska
+    div.container-lg.pojemnik.row.row-cols-1.row-cols-md-4.g-4.list
+        each article, index in message
+            if index !== 0
+                .col
+                    a(href="/artykul?nr=" + index)
+                        if article.data
+                            p(hidden).data= article.data
+                        if article.chmurki
+                            p(hidden).chmurki= article.chmurki
+                        if article.slonca
+                            p(hidden).slonca= article.slonca
+                        if article.tagi
+                            p(hidden).tagi= article.tagi
+                        if article.tytul
+                            p(hidden).tytul= article.tytul
+                        if article.tresc
+                            p(hidden).tresc= article.tresc
+                        .card
+                            img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
+                            .card-body
+                                h5.card-title.text-center.text-truncate= article.tytul
+                                p.card-text.text-truncate= article.tresc
 
+script(src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js")
+script(src='/skrypty/skrypt.js')
 footer.footer
     .container
         .footer-content
@@ -66,7 +81,7 @@ footer.footer
             .footer-info
                 p
                     | Strona stworzona przez 
-                    a(href="https://linktr.ee/loriv2") Lorenzo Marinucci
+                    a(href="https://linktr.ee/loriv2" target="_blank") Lorenzo Marinucci
                 p
                     | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
 script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')

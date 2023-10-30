@@ -36,20 +36,23 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
 .zdjc-art
     img(src=message.zdjc, alt="Tutaj powinien być obrazek" width='375' height='400')
 script(src='skrypty/skrypt.js')
-
 div.artykul-div
     h1= message.tytul_art
-    h3(id="data_dodania")= "Data dodania: "
-    script.
-        //- const wynik= daty(message.data_dodania);
-        console.log( #{message.data_dodania});
-        //- document.getElementById("data_dodania").innerHTML += wynik;
+    h3(id="data_dodania")= "Data dodania: " + data
     div
         if message.tresc
             div
                 h4= message.tresc
         else
             div= message
+if message.tagi
+    div.tagi
+        - var hashtagString = message.tagi;
+
+        - var hashtagArray = hashtagString.split('#').filter(Boolean);
+
+        each hashtag in hashtagArray
+            div= '#' + hashtag
 div.kreska_parent
     div.kreska
 div.chmurkaislonce
@@ -68,6 +71,7 @@ div.chmurkaislonce
         else 
             p(id = 5).liczba= 0
 script.
+    let dataa;
     let gdzie= "#{gdzie}";
     function komentarz(x){
         if((x.value.length < 2) || (x.value.length > 40)){
@@ -92,18 +96,24 @@ div.form-komentarz
         | prześlij komentarz
 div.komentarze
     h4 Komentarze:
-    if komentarze
-        each komentarz, index in komentarze
-            div.komentarz
-                div.data_dodania(id=index)
-                if komentarz.autor == ""
-                    div.autor_komentarza
-                        | anonim
-                else 
-                    div.autor_komentarza= komentarz.autor
-                div.tresc_komentarza= komentarz.tresc
-    else
-        div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
+    div.row.row-cols-2.row-cols-md-2.g-3
+        if komentarze
+            each uztekst, index in komentarze
+                div.komentarz
+                    div.data_dodania(id=index) ""
+                    script.
+                        dataa = new Date(!{uztekst.data_dodania});
+                        dataa = dataa.toLocaleDateString(undefined, opcje);
+                        document.getElementById('#{index}').innerHTML = dataa;
+                        console.log(dataa);
+                    if uztekst.autor == ""
+                        div.autor_komentarza
+                            | anonim
+                    else 
+                        div.autor_komentarza= uztekst.autor
+                    div.tresc_komentarza= uztekst.tresc
+        else
+            div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
 footer.footer
     .container
         .footer-content

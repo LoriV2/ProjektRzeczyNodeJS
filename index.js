@@ -80,6 +80,9 @@ function isAuth(req) {
   }
 
 }
+
+let sformatowane;
+let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
 let artid;
 let id = "";
 let username = "";
@@ -105,6 +108,7 @@ app.route('/')
       });
   });
 
+
 //droga do artykułów
 app.get('/artykul', (req, res) => {
   if ((req.query.nr != undefined) || (req.query.slonce != undefined) || (req.query.chmurka != undefined)) {
@@ -113,14 +117,17 @@ app.get('/artykul', (req, res) => {
     Pytanie(baza, 4, artid)
       .then((odpowiedz) => {
         isAuth(req);
+        odpowiedz.data_dodania_art = new Date(odpowiedz.data_dodania_art);
+        sformatowane = odpowiedz.data_dodania_art.toLocaleDateString(undefined, opcje);
         dane_do_wyslania =
         {
+          tagi: odpowiedz.tagi,
           liczba:
           {
             slonce: odpowiedz.slonca,
             chmurka: odpowiedz.chmurki
           },
-          data_dodania: odpowiedz.data_dodania_art,
+          data: sformatowane,
           title: odpowiedz.tytul_art,
           message: odpowiedz,
           gdzie: artid,
@@ -173,7 +180,7 @@ app.get('/Logout', (req, res) => {
 //nowy artykuł
 app.route('/nowy')
   .post(function (req, res, next) {
-    Pytanie(baza, 3, { id: id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, });
+    Pytanie(baza, 3, { id: id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi });
     res.redirect('/nowy');
   }
   )
@@ -227,6 +234,8 @@ app.route('/Nartykuly')
       });
 
   });
+
+
 
 //jeśli nie znajdzie strony
 app.use((req, res, next) => {
