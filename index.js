@@ -13,6 +13,12 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 //serwer połączenie
 var admin = require("firebase-admin");
+let sformatowane;
+let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
+let artid;
+let id = "";
+let username = "";
+let rola = "";
 
 admin.initializeApp({
   credential: admin.credential.cert(tajnyklucz),
@@ -23,6 +29,9 @@ const baza = admin.database();
 passport.serializeUser(function (user, cb) {
   console.log(user);
   process.nextTick(function () {
+    id = user.id;
+    username = user.username;
+    rola = user.rola;
     cb(null, { id: user.id, username: user.username, rola: user.rola });
   });
 });
@@ -68,9 +77,6 @@ app.use(flash());
 
 function isAuth(req) {
   if (req.session.passport !== undefined) {
-    id = req.session.passport.user.id;
-    username = req.session.passport.user.username;
-    rola = req.session.passport.user.rola;
     return true;
   } else {
     id = "";
@@ -78,15 +84,8 @@ function isAuth(req) {
     rola = "";
     return false;
   }
-
 }
 
-let sformatowane;
-let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
-let artid;
-let id = "";
-let username = "";
-let rola = "";
 const PORT = process.env.PORT || 3030;
 
 //wszystkie drogi prowadzą do mojej strony
