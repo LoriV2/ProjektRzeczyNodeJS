@@ -96,20 +96,6 @@ async function Pytanie(baza, x, slowa) {
                         }
                     });
                     break;
-                //robi przeciwnie do poprzedniego
-                case 8:
-                    await baza.ref("artykuly/" + slowa.gdzie + "/" + slowa.co).transaction((currentValue) => {
-                        return (currentValue || 0) - 1;
-                    }, (error, committed, snapshot) => {
-                        if (error) {
-                            console.error('Błąd podczas aktualizacji liczby: ', error);
-                        } else {
-                            console.log(snapshot.val());
-                            resolve(snapshot.val());
-                            console.log("działa");
-                        }
-                    });
-                    break;
                 default:
                     console.log("nie działa");
                     reject("Nieprawidłowy numer przypadku");

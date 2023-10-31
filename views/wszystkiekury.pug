@@ -23,9 +23,9 @@ nav.navbar.navbar-expand-lg.position-sticky(data-bs-theme='dark')
                     a.nav-link(href='/nowy') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                    if id != ""
+                    if dane_uz.id != ""
                         li.nav-item
-                            a.nav-link.active(aria-current='page' href='/Profil')= username
+                            a.nav-link.active(aria-current='page' href='/Profil')= dane_uz.username
                         li.nav-item
                             a.nav-link.active(aria-current='page' href='/Logout') Wyloguj się
                     else

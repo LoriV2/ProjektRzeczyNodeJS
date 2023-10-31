@@ -16,9 +16,12 @@ var admin = require("firebase-admin");
 let sformatowane;
 let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
 let artid;
-let id = "";
-let username = "";
-let rola = "";
+let dane_uz =
+{
+  id: "",
+  username: "",
+  rola: ""
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(tajnyklucz),
@@ -28,9 +31,9 @@ const baza = admin.database();
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    id = user.id;
-    username = user.username;
-    rola = user.rola;
+    dane_uz.id = user.id;
+    dane_uz.username = user.username;
+    dane_uz.rola = user.rola;
     cb(null, { id: user.id, username: user.username, rola: user.rola });
   });
 });
@@ -59,7 +62,7 @@ passport.use(new LocalStrategy(
 
 app.use(session({
   secret: crypto.randomBytes(32).toString('hex'), // Sekretny klucz dla sesji
-  resave: false,
+  resave: true,
   saveUninitialized: false
 }));
 app.use(passport.initialize());
@@ -89,13 +92,11 @@ app.route('/')
   .all(function (req, res, next) {
     Pytanie(baza, 1, "aaa")
       .then((odpowiedz) => {
-        isAuth(req);
         res.render('index', {
-          title: 'Strona Główna', message: odpowiedz, id, username, rola
+          title: 'Strona Główna', message: odpowiedz, dane_uz
         });
       })
       .catch((error) => {
-        isAuth(req);
         res.render('index', { title: 'Strona Główna', message: "" });
         console.error("Błąd:", error);
       });
@@ -108,7 +109,6 @@ app.get('/artykul', (req, res) => {
     artid = req.query.nr || req.query.slonce || req.query.chmurka;
     Pytanie(baza, 4, artid)
       .then((odpowiedz) => {
-        isAuth(req);
         odpowiedz.data_dodania_art = new Date(odpowiedz.data_dodania_art);
         sformatowane = odpowiedz.data_dodania_art.toLocaleDateString(undefined, opcje);
         dane_do_wyslania =
@@ -123,9 +123,7 @@ app.get('/artykul', (req, res) => {
           title: odpowiedz.tytul_art,
           message: odpowiedz,
           gdzie: artid,
-          id,
-          username,
-          rola,
+          dane_uz,
           doprzycisku: req.query.nr,
           komentarze: odpowiedz.komentarze
         }
@@ -137,7 +135,7 @@ app.get('/artykul', (req, res) => {
         console.error("Błąd:", error);
       });
   } else {
-    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', id, username, rola });
+    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', dane_uz });
   }
 
 });
@@ -152,17 +150,15 @@ app.post('/zwiekszLiczbe', (req, res) => {
   return Pytanie(baza, 7, { gdzie: req.body.gdzie, co: req.body.rodzaj });
 });
 
-//robi przeciwnie do poprzedniego
-app.post('/zmniejszLiczbe', (req, res) => {
-  return Pytanie(baza, 8, { gdzie: req.body.gdzie, co: req.body.rodzaj });
-});
-
 //żeby się wylogować
 app.get('/Logout', (req, res) => {
   req.logout(function (err) {
-    id = "";
-    username = "";
-    rola = "";
+    dane_uz =
+    {
+      id: "",
+      username: "",
+      rola: ""
+    };
     if (err) { return next(err); }
     res.redirect('/');
   });
@@ -177,7 +173,7 @@ app.route('/nowy')
   )
   .all(function (req, res, next) {
     if ((isAuth(req) == true)) {
-      res.render('nowyrykul', { title: 'Nowy artykuł', id, username, rola });
+      res.render('nowyrykul', { title: 'Nowy artykuł', dane_uz });
     } else {
       res.redirect('/Login');
     }
@@ -202,7 +198,7 @@ app.route('/Rejestracja')
         res.render('register', { title: 'Rejestracja', message: odpowiedz });
       })
       .catch((error) => {
-        res.render('register', { title: 'Rejestracja', message: 'Zarejestruj się!' });
+        res.render('register', { title: 'Rejestracja', message: 'Coś się popsuło!' });
         console.error("Błąd:", error);
       });
   })
@@ -213,13 +209,12 @@ app.route('/Rejestracja')
 //Pokazuje wszystkie artykuły
 app.route('/Nartykuly')
   .all(function (req, res, next) {
-    isAuth(req);
     Pytanie(baza, 6, "")
       .then((odpowiedz) => {
-        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, id, username, rola, id });
+        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz });
       }).catch((error) => {
         res.render('index', {
-          title: 'Strona Główna', message: odpowiedz, id, username, rola
+          title: 'Strona Główna', message: "", dane_uz
         });
         console.error("Błąd:", error);
       });
@@ -230,14 +225,12 @@ app.route('/Nartykuly')
 
 //jeśli nie znajdzie strony
 app.use((req, res, next) => {
-  isAuth(req);
   res.status(404).send("Nie ma czegoś takiego!")
 });
 
 //jeśli odpowie błędem
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  isAuth(req);
   res.status(500).send('Coś sie popsuło!!!')
 });
 
