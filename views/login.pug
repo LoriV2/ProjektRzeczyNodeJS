@@ -31,8 +31,8 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
     div.login-div
         p= message
         form(action="/Login" method="post") 
-            input(type="text" name="username")
-            input(type="password" name="password")
+            input(type="text" placeholder="login" name="username")
+            input(type="password" placeholder="hasło" name="password")
             br
             button(type="submit" value="Zaloguj się")
                 | prześlij
