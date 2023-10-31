@@ -16,12 +16,7 @@ var admin = require("firebase-admin");
 let sformatowane;
 let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
 let artid;
-let dane_uz =
-{
-  id: "",
-  username: "",
-  rola: ""
-};
+let dane_uz
 
 admin.initializeApp({
   credential: admin.credential.cert(tajnyklucz),
@@ -31,9 +26,6 @@ const baza = admin.database();
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    dane_uz.id = user.id;
-    dane_uz.username = user.username;
-    dane_uz.rola = user.rola;
     cb(null, { id: user.id, username: user.username, rola: user.rola });
   });
 });
@@ -74,15 +66,6 @@ app.use(express.static('views'));
 app.set('view engine', 'pug');
 app.use(flash());
 
-
-function isAuth(req) {
-  if (req.session.passport !== undefined) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 const PORT = process.env.PORT || 3030;
 
 //wszystkie drogi prowadzą do mojej strony
@@ -93,7 +76,7 @@ app.route('/')
     Pytanie(baza, 1, "aaa")
       .then((odpowiedz) => {
         res.render('index', {
-          title: 'Strona Główna', message: odpowiedz, dane_uz
+          title: 'Strona Główna', message: odpowiedz, dane_uz: req.user
         });
       })
       .catch((error) => {
@@ -102,6 +85,20 @@ app.route('/')
       });
   });
 
+//Pokazuje wszystkie artykuły
+app.route('/Nartykuly')
+  .all(function (req, res, next) {
+    Pytanie(baza, 6, "")
+      .then((odpowiedz) => {
+        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz });
+      }).catch((error) => {
+        res.render('index', {
+          title: 'Strona Główna', message: "", dane_uz
+        });
+        console.error("Błąd:", error);
+      });
+
+  });
 
 //droga do artykułów
 app.get('/artykul', (req, res) => {
@@ -123,22 +120,39 @@ app.get('/artykul', (req, res) => {
           title: odpowiedz.tytul_art,
           message: odpowiedz,
           gdzie: artid,
-          dane_uz,
+          dane_uz: req.user,
           doprzycisku: req.query.nr,
           komentarze: odpowiedz.komentarze
         }
         res.render('artykul', dane_do_wyslania);
       })
       .catch((error) => {
-        isAuth(req);
         res.redirect('/');
         console.error("Błąd:", error);
       });
   } else {
-    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', dane_uz });
+    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', dane_uz: req.user });
   }
 
 });
+
+//nowy artykuł
+app.route('/nowy')
+  .post(function (req, res, next) {
+    if (req.isAuthenticated()) {
+      Pytanie(baza, 3, { id: req.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
+        res.redirect('/nowy'));
+    } else {
+      res.redirect('/Login');
+    }
+  })
+  .all(function (req, res, next) {
+    if (req.isAuthenticated()) {
+      res.render('nowyrykul', { title: 'Nowy artykuł', dane_uz: req.user });
+    } else {
+      res.redirect('/Login');
+    }
+  });
 
 //żeby dodać komentarz
 app.post('/Komentarz', (req, res) => {
@@ -153,31 +167,10 @@ app.post('/zwiekszLiczbe', (req, res) => {
 //żeby się wylogować
 app.get('/Logout', (req, res) => {
   req.logout(function (err) {
-    dane_uz =
-    {
-      id: "",
-      username: "",
-      rola: ""
-    };
     if (err) { return next(err); }
     res.redirect('/');
   });
 });
-
-//nowy artykuł
-app.route('/nowy')
-  .post(function (req, res, next) {
-    Pytanie(baza, 3, { id: id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi });
-    res.redirect('/nowy');
-  }
-  )
-  .all(function (req, res, next) {
-    if ((isAuth(req) == true)) {
-      res.render('nowyrykul', { title: 'Nowy artykuł', dane_uz });
-    } else {
-      res.redirect('/Login');
-    }
-  });
 
 //logowanie
 app.route('/Login')
@@ -206,20 +199,7 @@ app.route('/Rejestracja')
     res.render('register', { title: 'Rejestracja', message: 'Zarejestruj się!' });
   });
 
-//Pokazuje wszystkie artykuły
-app.route('/Nartykuly')
-  .all(function (req, res, next) {
-    Pytanie(baza, 6, "")
-      .then((odpowiedz) => {
-        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz });
-      }).catch((error) => {
-        res.render('index', {
-          title: 'Strona Główna', message: "", dane_uz
-        });
-        console.error("Błąd:", error);
-      });
 
-  });
 
 
 

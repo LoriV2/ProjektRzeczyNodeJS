@@ -14,16 +14,16 @@ nav.navbar.navbar-expand-lg.position-sticky(data-bs-theme='dark')
         #navbarText.collapse.navbar-collapse
             ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 li.nav-item
-                    a.nav-link.active(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
+                    a.nav-link( href='/') Strona G&lstrok;&oacute;wna
                 li.nav-item
-                    a.nav-link(href='/Nartykuly') Wszystkie artykuły
+                    a.nav-link.active(aria-current='page' href='/Nartykuly') Wszystkie artykuły
                 li.nav-item
                     a.nav-link(href='/O nas') O nas
                 li.nav-item
                     a.nav-link(href='/nowy') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                    if dane_uz.id != ""
+                    if dane_uz
                         li.nav-item
                             a.nav-link.active(aria-current='page' href='/Profil')= dane_uz.username
                         li.nav-item
@@ -40,10 +40,10 @@ div(id="lista")
     div.przyciski_sort_container
         div.przyciski_sort
             //▼▲
-            button(type="button" data-sort="data").sort Data
+            button(type="button" data-sort="data" onclick="zmien(this)").sort Data
             //▼▲
-            button(type="button" data-sort="slonca").sort Słońca
-            button(type="button" data-sort="chmurki").sort Chmury
+            button(type="button" data-sort="slonca" onclick="zmien(this)").sort Słońca
+            button(type="button" data-sort="chmurki" onclick="zmien(this)").sort Chmury
             input(type="text" placeholder="Wpisz tagi bądź tytuł").search
     div.kreska_parent
         div.kreska

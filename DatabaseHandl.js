@@ -90,14 +90,11 @@ async function Pytanie(baza, x, slowa) {
                         if (error) {
                             console.error('Błąd podczas aktualizacji liczby: ', error);
                         } else {
-                            console.log(snapshot.val());
                             resolve(snapshot.val());
-                            console.log("działa");
                         }
                     });
                     break;
                 default:
-                    console.log("nie działa");
                     reject("Nieprawidłowy numer przypadku");
                     break;
             }

@@ -14,16 +14,16 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
         #navbarText.collapse.navbar-collapse
             ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 li.nav-item
-                    a.nav-link.active(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
+                    a.nav-link(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
                 li.nav-item
                     a.nav-link(href='/Nartykuly') Wszystkie artykuły
                 li.nav-item
                     a.nav-link(href='/O nas') O nas
                 li.nav-item
-                    a.nav-link(href='/nowy') Nowy artykuł
+                    a.nav-link.active(href='/nowy' aria-current='page') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                    if dane_uz.id != ""
+                    if dane_uz
                         li.nav-item
                             a.nav-link.active(aria-current='page' href='/Profil')= dane_uz.username
                         li.nav-item
@@ -66,6 +66,7 @@ script.
     const wiadomosc = document.getElementById('wiadomosc');
     let inputElement2 = document.getElementById('tutaj');
 
+    //sprawdzanie czy zdjęcie jest poprawne
     inputElement.addEventListener('input', function(event) {
 
     imageUrl = event.target.value;
