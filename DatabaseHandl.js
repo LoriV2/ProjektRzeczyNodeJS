@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 async function Pytanie(baza, x, slowa) {
     return new Promise(async (resolve, reject) => {
         try {
