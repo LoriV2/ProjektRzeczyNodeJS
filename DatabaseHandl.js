@@ -72,7 +72,7 @@ async function Pytanie(baza, x, slowa) {
                     //dodawanie komentarzy
                     await baza.ref('komentarze/' + slowa.link).push({
                         tresc: slowa.komentarz,
-                        autor: slowa.autor,
+                        autor: slowa.autor ,
                         data_dodania: new Date().getTime(),
                     })
                     resolve("działa");

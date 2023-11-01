@@ -156,7 +156,11 @@ app.route('/nowy')
 
 //żeby dodać komentarz
 app.post('/Komentarz', (req, res) => {
-  return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: username, link: req.body.gdzie });
+  if (req.user) {
+    return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: req.user.username, link: req.body.gdzie });
+  } else {
+    return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: "", link: req.body.gdzie });
+  }
 });
 
 //zwiększa liczbę chmurek bądź słońc
@@ -198,10 +202,6 @@ app.route('/Rejestracja')
   .all(function (req, res, next) {
     res.render('register', { title: 'Rejestracja', message: 'Zarejestruj się!' });
   });
-
-
-
-
 
 //jeśli nie znajdzie strony
 app.use((req, res, next) => {
