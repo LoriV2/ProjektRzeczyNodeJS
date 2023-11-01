@@ -90,10 +90,10 @@ app.route('/Nartykuly')
   .all(function (req, res, next) {
     Pytanie(baza, 6, "")
       .then((odpowiedz) => {
-        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz });
+        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz: req.user});
       }).catch((error) => {
         res.render('index', {
-          title: 'Strona Główna', message: "", dane_uz
+          title: 'Strona Główna', message: "", dane_uz: req.user
         });
         console.error("Błąd:", error);
       });
