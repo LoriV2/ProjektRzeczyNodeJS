@@ -72,7 +72,7 @@ async function Pytanie(baza, x, slowa) {
                     //dodawanie komentarzy
                     await baza.ref('komentarze/' + slowa.link).push({
                         tresc: slowa.komentarz,
-                        autor: slowa.autor ,
+                        autor: slowa.autor,
                         data_dodania: new Date().getTime(),
                     })
                     resolve("działa");
@@ -94,6 +94,29 @@ async function Pytanie(baza, x, slowa) {
                             resolve(snapshot.val());
                         }
                     });
+                    break;
+                case 8:
+                    const snapshot7 = await baza.ref('uzytkownicy').once('value');
+                    const odpowiedz7 = snapshot7.val();
+                    resolve(odpowiedz7);
+                    break;
+                case 9:
+                    await baza.ref('uzytkownicy/' + slowa + '/rola').once('value').then(
+                        cos => {
+                            if (cos.val() == "pracownik") {
+                                baza.ref('uzytkownicy/' + slowa + '/rola').set("użytkownik").then(
+                                    resolve("działa")
+                                )
+                            } else {
+                                baza.ref('uzytkownicy/' + slowa + '/rola').set("pracownik").then(
+                                    resolve("działa")
+                                )
+                            }
+                        }
+                    );
+                case 10:
+                    await baza.ref('artykuly/' + slowa).remove().then(
+                        resolve("działa"))
                     break;
                 default:
                     reject("Nieprawidłowy numer przypadku");

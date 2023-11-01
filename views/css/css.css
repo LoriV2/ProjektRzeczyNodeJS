@@ -7,6 +7,78 @@
   box-sizing: border-box;
 }
 
+.table {
+  font-size: large;
+  margin-top: 2%;
+  margin-bottom: 16%;
+}
+.table td,
+.table th,
+.table tr {
+  color: #5dc7a4;
+  background-color: #183342;
+  border: 2px solid #38041e;
+}
+.table tbody .c:hover {
+  background-color: #5dc7a4;
+}
+.table td:hover {
+  background-color: #38041e;
+}
+
+.tytul {
+  width: 100%;
+  text-align: center;
+}
+
+.kolejny_parent {
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+}
+.kolejny_parent ol {
+  font-size: large;
+}
+.kolejny_parent .kreska_parent .kreska {
+  background-color: #5dc7a4;
+}
+.kolejny_parent h1 {
+  color: #183342;
+}
+.kolejny_parent a {
+  color: #338a82;
+}
+.kolejny_parent a:hover {
+  color: #38041e;
+}
+.kolejny_parent .kolejny1 {
+  display: inline-block;
+  padding: 50px;
+  height: 30%;
+  background-color: #183342;
+  width: 30%;
+  border-radius: 90vw;
+  color: #5dc7a4;
+}
+.kolejny_parent .kolejny2 {
+  display: inline-block;
+  background-color: #183342;
+  padding: 50px;
+  height: 30%;
+  width: 30%;
+  border-radius: 90vw;
+  color: #5dc7a4;
+}
+.kolejny_parent .kolejny3 {
+  display: inline-block;
+  margin-top: 5%;
+  background-color: #183342;
+  width: fit-content;
+  padding: 100px;
+  border-radius: 10vh;
+  color: #5dc7a4;
+}
+
 .kreska_parent {
   text-align: -webkit-center;
   width: 100%;
@@ -148,6 +220,51 @@ nav {
   border-radius: 20px;
   background-color: #5dc7a4;
   color: #183342;
+}
+.card a {
+  text-decoration: none;
+  color: #183342;
+  border-radius: 20px;
+}
+.card a:hover {
+  background-color: #183342;
+  color: #5dc7a4;
+}
+.card .widoczny {
+  display: block;
+  color: #5dc7a4;
+  background-color: #38041e;
+  padding: 10%;
+  border: none;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.card .niewidoczny {
+  background-color: white;
+  opacity: 90%;
+  z-index: 20;
+  display: block;
+}
+.card .niewidoczny div {
+  display: none;
+  width: 100%;
+  text-align: center;
+}
+.card .niewidoczny div button {
+  border: none;
+  background-color: #183342;
+  color: #5dc7a4;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 2%;
+}
+.card .niewidoczny div button:hover {
+  background-color: #38041e;
+  color: red;
+}
+.card button:hover {
+  background-color: #183342;
+  color: red;
 }
 
 footer {

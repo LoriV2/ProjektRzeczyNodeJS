@@ -18,12 +18,15 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                 li.nav-item
                     a.nav-link(href='/Nartykuly') Wszystkie artykuły
                 li.nav-item
-                    a.nav-link(href='/O nas') O nas
+                    a.nav-link(href='/Onas') O nas
                 li.nav-item
                     a.nav-link(href='/nowy') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     if dane_uz
+                        if dane_uz.rola == "administrator"
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/admin') Panel administratora
                         li.nav-item
                             a.nav-link.active(aria-current='page' href='/Profil')= dane_uz.username
                         li.nav-item
@@ -78,14 +81,41 @@ script.
             document.getElementById("powiadomienie").innerHTML = "Tekst nie może zawierać mniej niż 2 znaki i nie więcej niż 40!"
         }else{
             fetch('/Komentarz', { method: 'POST' , headers: {'Content-Type': 'application/json'} , body: JSON.stringify({gdzie: gdzie, komentarz: x.value})})   
-                .catch(error => console.error('Błąd: ', error));
-                location.reload();};
-                }
+                .then(response => {
+        if (response.ok) {
+            // Po zakończeniu sukcesem, odśwież stronę
+            location.reload();
+        } else {
+            console.error('Błąd w odpowiedzi HTTP:', response.status);
+        }
+        })
+        .catch(error => {
+            console.error('Błąd:', error);
+        });
+        }}
 
     function zwiekszLiczbe(rodzaj) {
-        fetch('/zwiekszLiczbe?rodzaj=' + rodzaj, { method: 'POST' , headers: {'Content-Type': 'application/json'} , body: JSON.stringify({gdzie: gdzie, rodzaj: rodzaj })})   
-        .catch(error => console.error('Błąd: ', error));
-        location.reload();};
+    fetch('/zwiekszLiczbe?rodzaj=' + rodzaj, { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({gdzie: gdzie, rodzaj: rodzaj})
+    })
+    .then(response => {
+        if (response.ok) {
+            // Po zakończeniu sukcesem, odśwież stronę
+            location.reload();
+        } else {
+            console.error('Błąd w odpowiedzi HTTP:', response.status);
+        }
+    })
+    .catch(error => {
+        console.error('Błąd:', error);
+    });
+    }
+
+
+
+
 div.kreska_parent
     div.kreska
 div.form-komentarz
@@ -105,7 +135,6 @@ div.komentarze
                         dataa = new Date(!{uztekst.data_dodania});
                         dataa = dataa.toLocaleDateString(undefined, opcje);
                         document.getElementById('#{index}').innerHTML = dataa;
-                        console.log(dataa);
                     if uztekst.autor == ""
                         div.autor_komentarza
                             | anonim

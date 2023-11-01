@@ -2,7 +2,7 @@ doctype html
 head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title= title
+    title= title 
     link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
     link(rel='stylesheet' href='css/css.css')
 nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
@@ -14,13 +14,15 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
         #navbarText.collapse.navbar-collapse
             ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 li.nav-item
-                    a.nav-link(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
+                    a.nav-link( href='/') Strona G&lstrok;&oacute;wna
                 li.nav-item
                     a.nav-link(href='/Nartykuly') Wszystkie artykuły
                 li.nav-item
-                    a.nav-link(href='/Onas') O nas
+                    a.nav-link.active(aria-current='page' href='/Onas') O nas
                 li.nav-item
-                    a.nav-link.active(href='/nowy' aria-current='page') Nowy artykuł
+                    a.nav-link(href='/nowy') Nowy artykuł
+                li.nav-item
+                    a.nav-link(href='')
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     if dane_uz
@@ -36,20 +38,48 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                             a.nav-link.active(aria-current='page' href='/Login') Login
                         li.nav-item
                             a.nav-link(href='/Rejestracja') Rejestracja
-form(action="/nowy" method="post").artykul-form-div
-    .zdjc-art
-        img(src="" alt="Tutaj powinien być obrazek" width='375' height='400' id="tutaj")  
-    div
-        input(type="text" name="zdjc" id="zdjc" placeholder="Link do zdjęcia"  required)
-        p(id = "wiadomosc").powiadomienie
-        br 
-        input(type="text" name="tytul" placeholder="Tytuł artykułu" required)
+div.container-lg.pojemnik.row.row-cols-1.row-cols-md-2.g-4
+    div.kolejny_parent
+        div.tytul
+            h1 Witamy na stronie "Y" !
+        div.kolejny1
+            h2 Jest to strona z różnymi artykułami
+        div.kolejny2
+            h2 Link do dokumentacji technicznej: 
+                a(href="" target="blank") LINK
         br
-        br
-        input(type="text" name="tagi" placeholder="Tagi np. #tanie #serio_mówię").tagi
-        textarea(name="tresc" cols="30" rows="10" minlength="2101" placeholder="tresc" required)
-        button(type="submit")
-            | prześlij
+        div.kolejny3
+            h2 Często zadawane pytania FAQ:
+            ol
+                div.kreska_parent
+                    div.kreska
+                li Czy na stronie można się zarejestrować?
+                p Tak. Możesz się zarejestrować 
+                    a(href="/Rejestracja" target="blank") TUTAJ
+                div.kreska_parent
+                    div.kreska
+                li Zarejestrowałem się. Gdzie się zalogować?
+                p Możesz zalogować się  
+                    a(href="/Login" target="blank") TUTAJ
+                div.kreska_parent
+                    div.kreska
+                li Jak mogę zacząć dodawać artykuły?
+                p Aby dodawać artykuły musisz zostać pracownikiem
+                div.kreska_parent
+                    div.kreska
+                li Jak zostać pracownikiem?
+                p Aby zostać pracownikiem należy zgłosić chęć zostania pracownikiem na 
+                    a(href="https://discord.gg/9UzEJP8gYx" target="blank") Discordzie 
+                    | bądź napisać na tego
+                    a(href="mailto:qprzlyuznppbeugoay@ckptr.com" target="blank")  maila 
+                    | (obecnie nie szukamy pracowników)
+                div.kreska_parent
+                    div.kreska
+
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
+script(src='skrypty/skrypt.js')
+
+
 footer.footer
     .container
         .footer-content
@@ -62,28 +92,3 @@ footer.footer
                     a(href="https://linktr.ee/loriv2" target="_blank") Lorenzo Marinucci
                 p
                     | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
-script.
-    let imageUrl = ''; // Wstaw tutaj URL swojego obrazu
-    const inputElement = document.getElementById('zdjc');
-    const wiadomosc = document.getElementById('wiadomosc');
-    let inputElement2 = document.getElementById('tutaj');
-
-    //sprawdzanie czy zdjęcie jest poprawne
-    inputElement.addEventListener('input', function(event) {
-
-    imageUrl = event.target.value;
-    let img = new Image();
-    img.src = imageUrl;
-
-    img.onload = function() {
-        inputElement2.src = imageUrl;
-        wiadomosc.innerHTML = "";
-        console.log('Obraz został załadowany.');
-    };
-
-    img.onerror = function() {
-        wiadomosc.innerHTML = "Nie poprawny link do zdjęcia";
-        console.error('Błąd ładowania obrazu.');
-    };
-    });

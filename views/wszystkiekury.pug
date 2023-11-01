@@ -18,12 +18,15 @@ nav.navbar.navbar-expand-lg.position-sticky(data-bs-theme='dark')
                 li.nav-item
                     a.nav-link.active(aria-current='page' href='/Nartykuly') Wszystkie artykuły
                 li.nav-item
-                    a.nav-link(href='/O nas') O nas
+                    a.nav-link(href='/Onas') O nas
                 li.nav-item
                     a.nav-link(href='/nowy') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     if dane_uz
+                        if dane_uz.rola == "administrator"
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/admin') Panel administratora
                         li.nav-item
                             a.nav-link.active(aria-current='page' href='/Profil')= dane_uz.username
                         li.nav-item
@@ -36,6 +39,7 @@ nav.navbar.navbar-expand-lg.position-sticky(data-bs-theme='dark')
 h1.indexten
     | Wszystkie artykuły!
     br
+
 div(id="lista")
     div.przyciski_sort_container
         div.przyciski_sort
@@ -48,27 +52,116 @@ div(id="lista")
     div.kreska_parent
         div.kreska
     div.container-lg.pojemnik.row.row-cols-1.row-cols-md-4.g-4.list
-        each article, index in message
-            if index !== 0
-                .col
-                    a(href="/artykul?nr=" + index)
-                        if article.data
-                            p(hidden).data= article.data
-                        if article.chmurki
-                            p(hidden).chmurki= article.chmurki
-                        if article.slonca
-                            p(hidden).slonca= article.slonca
-                        if article.tagi
-                            p(hidden).tagi= article.tagi
-                        if article.tytul
-                            p(hidden).tytul= article.tytul
-                        if article.tresc
-                            p(hidden).tresc= article.tresc
-                        .card
-                            img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
-                            .card-body
-                                h5.card-title.text-center.text-truncate= article.tytul
-                                p.card-text.text-truncate= article.tresc
+        if dane_uz
+            if dane_uz.rola == "pracownik" || dane_uz.rola == "administrator"
+                each article, index in message
+                    if index !== 0
+                        .col
+                            if article.data
+                                p(hidden).data= article.data
+                            if article.chmurki
+                                p(hidden).chmurki= article.chmurki
+                            if article.slonca
+                                p(hidden).slonca= article.slonca
+                            if article.tagi
+                                p(hidden).tagi= article.tagi
+                            if article.tytul
+                                p(hidden).tytul= article.tytul
+                            if article.tresc
+                                p(hidden).tresc= article.tresc
+                            .card
+                                a(href="/artykul?nr=" + index)
+                                    img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
+                                a(href="/artykul?nr=" + index)
+                                    .card-body
+                                        h5.card-title.text-center.text-truncate= article.tytul
+                                        p.card-text.text-truncate= article.tresc
+                                button(type="button" onclick="Pokaz({ktory: this , gdzie:'" + index + "'})").widoczny Usuń
+                                .niewidoczny
+                                    div(id = "niewid"+index)
+                                        | Czy na pewno chcesz usunąć ten artykuł?
+                                        br
+                                        | Jest to permanentne i nie można tego cofnąć
+                                        br
+                                        button(type="button" onclick="Usun('Tak')") Tak
+                                        button(type="button" onclick="Usun('Nie')") Nie jednak się rozmyśliłem
+                script.
+                    let b = "";
+                    let c = "";
+                    function Pokaz(x){
+                        if (c != ""){
+                            c.style.display = "block"
+                            document.getElementById("niewid"+ b).style.display = "none";
+                        }
+                        x.ktory.style.display = "none";
+                        document.getElementById("niewid" + x.gdzie).style.display = "block";
+                        b = x.gdzie;
+                        c = x.ktory;
+                    };
+                    function Usun(d){
+                        if(d == "Tak"){
+                            fetch('/usunart' ,{ method: 'POST' , headers: {'Content-Type': 'application/json'} , body: JSON.stringify( {ktory: b})} ).then(
+                            response =>{
+                            if (response.ok) {
+                            // Po zakończeniu sukcesem, odśwież stronę
+                            location.reload();
+                            } else {
+                                console.error('Błąd w odpowiedzi HTTP:', response.status);
+                            }
+                            })
+                            .catch(error => {
+                                console.error('Błąd:', error);
+                            });
+                        }else{
+                            document.getElementById("niewid"+ b).style.display = "none";
+                            c.style.display = "block";
+                            c = "";
+                            b = "";
+                        }}            
+            else
+                each article, index in message
+                    if index !== 0
+                        .col
+                            a(href="/artykul?nr=" + index)
+                                if article.data
+                                    p(hidden).data= article.data
+                                if article.chmurki
+                                    p(hidden).chmurki= article.chmurki
+                                if article.slonca
+                                    p(hidden).slonca= article.slonca
+                                if article.tagi
+                                    p(hidden).tagi= article.tagi
+                                if article.tytul
+                                    p(hidden).tytul= article.tytul
+                                if article.tresc
+                                    p(hidden).tresc= article.tresc
+                                .card
+                                    img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
+                                    .card-body
+                                        h5.card-title.text-center.text-truncate= article.tytul
+                                        p.card-text.text-truncate= article.tresc
+        else
+            each article, index in message
+                if index !== 0
+                    .col
+                        a(href="/artykul?nr=" + index)
+                            if article.data
+                                p(hidden).data= article.data
+                            if article.chmurki
+                                p(hidden).chmurki= article.chmurki
+                            if article.slonca
+                                p(hidden).slonca= article.slonca
+                            if article.tagi
+                                p(hidden).tagi= article.tagi
+                            if article.tytul
+                                p(hidden).tytul= article.tytul
+                            if article.tresc
+                                p(hidden).tresc= article.tresc
+                            .card
+                                img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
+                                .card-body
+                                    h5.card-title.text-center.text-truncate= article.tytul
+                                    p.card-text.text-truncate= article.tresc
 
 script(src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js")
 script(src='/skrypty/skrypt.js')

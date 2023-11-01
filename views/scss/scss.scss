@@ -12,11 +12,103 @@ $fourthary-color: #38041e;
     box-sizing: border-box;
 }
 
+.table {
+    font-size: large;
+    margin-top: 2%;
+    margin-bottom: 16%;
+
+    td,
+    th,
+    tr {
+        color: $thirdary-color;
+        background-color: $primary-color;
+        border: 2px solid $fourthary-color;
+    }
+
+    tbody {
+        .c:hover {
+            background-color: $thirdary-color;
+        }
+    }
+
+
+    td:hover {
+        background-color: $fourthary-color;
+    }
+}
+
+
+.tytul {
+    width: 100%;
+    text-align: center;
+}
+
+.kolejny_parent {
+    ol {
+        font-size: large;
+    }
+
+    .kreska_parent {
+        .kreska {
+            background-color: $thirdary-color;
+        }
+    }
+
+    h1 {
+        color: $primary-color;
+    }
+
+    a {
+        color: $secondary-color;
+    }
+
+    a:hover {
+        color: $fourthary-color;
+    }
+
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+
+    .kolejny1 {
+        display: inline-block;
+        padding: 50px;
+        height: 30%;
+        background-color: $primary-color;
+        width: 30%;
+        border-radius: 90vw;
+        color: $thirdary-color;
+    }
+
+    .kolejny2 {
+        display: inline-block;
+        background-color: $primary-color;
+        padding: 50px;
+        height: 30%;
+        width: 30%;
+        border-radius: 90vw;
+        color: $thirdary-color;
+    }
+
+    .kolejny3 {
+
+        display: inline-block;
+        margin-top: 5%;
+        background-color: $primary-color;
+        width: fit-content;
+        padding: 100px;
+        border-radius: 10vh;
+        color: $thirdary-color;
+    }
+}
+
+
 .kreska_parent {
     text-align: -webkit-center;
     width: 100%;
     height: auto;
     margin-top: auto;
+
     .kreska {
         text-align: center;
         border-radius: 25%;
@@ -161,7 +253,62 @@ nav {
 }
 
 
+
 .card {
+    a {
+        text-decoration: none;
+        color: $primary-color;
+        border-radius: 20px;
+    }
+
+    a:hover {
+        background-color: $primary-color;
+        color: $thirdary-color;
+    }
+
+    .widoczny {
+        display: block;
+        color: $thirdary-color;
+        background-color: $fourthary-color;
+        padding: 10%;
+        border: none;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .niewidoczny {
+        background-color: white;
+        opacity: 90%;
+        z-index: 20;
+        display: block;
+
+        div {
+            display: none;
+            button {
+                border: none;
+                background-color: $primary-color;
+                color: $thirdary-color;
+                border-radius: 25px;
+                padding: 10px;
+                margin: 2%;
+            }
+
+            button:hover {
+                background-color: $fourthary-color;
+                color: red;
+            }
+
+
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    button:hover {
+        background-color: $primary-color;
+        color: red;
+    }
+
     border-radius: 20px;
     background-color: $thirdary-color;
     color: $primary-color;

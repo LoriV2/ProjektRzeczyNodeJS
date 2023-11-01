@@ -13,10 +13,10 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 //serwer połączenie
 var admin = require("firebase-admin");
+const { resolve } = require('path');
 let sformatowane;
 let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
 let artid;
-let dane_uz
 
 admin.initializeApp({
   credential: admin.credential.cert(tajnyklucz),
@@ -85,12 +85,19 @@ app.route('/')
       });
   });
 
+app.route('/Onas')
+  .all(function (req, res, next) {
+    res.render('Onas', {
+      title: 'O nas', dane_uz: req.user
+    })
+  });
+
 //Pokazuje wszystkie artykuły
 app.route('/Nartykuly')
   .all(function (req, res, next) {
     Pytanie(baza, 6, "")
       .then((odpowiedz) => {
-        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz: req.user});
+        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz: req.user });
       }).catch((error) => {
         res.render('index', {
           title: 'Strona Główna', message: "", dane_uz: req.user
@@ -137,6 +144,27 @@ app.get('/artykul', (req, res) => {
 });
 
 //nowy artykuł
+app.route('/admin')
+  .post(function (req, res, next) {
+    if ((req.isAuthenticated()) && (req.user.rola == 'administrator')) {
+      Pytanie(baza, 9, { id: req.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
+        res.redirect('/admin'));
+    } else {
+      res.redirect('/Login');
+    }
+  })
+  .all(function (req, res, next) {
+    if ((req.isAuthenticated()) && (req.user.rola == 'administrator')) {
+      Pytanie(baza, 8).then((cos) => {
+        res.render('admin', { cos, dane_uz: req.user });
+      }
+      );
+    } else {
+      res.redirect('/Login');
+    }
+  });
+
+//nowy artykuł
 app.route('/nowy')
   .post(function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -157,15 +185,33 @@ app.route('/nowy')
 //żeby dodać komentarz
 app.post('/Komentarz', (req, res) => {
   if (req.user) {
-    return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: req.user.username, link: req.body.gdzie });
+    Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: req.user.username, link: req.body.gdzie }).then(
+      res.status(200).send("Sukces")
+    );
   } else {
-    return Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: "", link: req.body.gdzie });
+    Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: "", link: req.body.gdzie }).then(
+      res.status(200).send("Sukces")
+    );
   }
+});
+
+app.post('/zmien', (req, res) => {
+  Pytanie(baza, 9, req.body.kto).then(
+    res.status(200).send("Sukces")
+  );
+});
+
+app.post('/usunart', (req, res) => {
+  Pytanie(baza, 10, req.body.ktory).then(
+    res.status(200).send("Sukces")
+  );
 });
 
 //zwiększa liczbę chmurek bądź słońc
 app.post('/zwiekszLiczbe', (req, res) => {
-  return Pytanie(baza, 7, { gdzie: req.body.gdzie, co: req.body.rodzaj });
+  Pytanie(baza, 7, { gdzie: req.body.gdzie, co: req.body.rodzaj }).then(
+    res.status(200).send("Sukces")
+  );
 });
 
 //żeby się wylogować

@@ -18,7 +18,7 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                 li.nav-item
                     a.nav-link(href='/Nartykuly') Wszystkie artykuły
                 li.nav-item
-                    a.nav-link(href='/O nas') O nas
+                    a.nav-link(href='/Onas') O nas
                 li.nav-item
                     a.nav-link(href='/nowy') Nowy artykuł
                 li.nav-item
@@ -26,6 +26,9 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     if dane_uz
+                        if dane_uz.rola == "administrator"
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/admin') Panel administratora
                         li.nav-item
                             a.nav-link.active(aria-current='page' href='/Profil')= dane_uz.username
                         li.nav-item
