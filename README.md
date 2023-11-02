@@ -14,4 +14,5 @@ Funkcje w trakcie wymyślania:
   Rejestracja,
   Logowanie,
   Szata graficzna,
-  
+
+link tu -> https://yapp2go.fly.dev/
