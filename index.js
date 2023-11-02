@@ -270,8 +270,8 @@ app.use((err, req, res, next) => {
 });
 
 //inicjalizacja serwera
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+app.listen(8080, () => {
+  console.log(`server started`)
 });
 
 
