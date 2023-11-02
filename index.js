@@ -54,7 +54,6 @@ passport.use(new LocalStrategy(
 
 app.use(session({
   secret: crypto.randomBytes(32).toString('hex'), // Sekretny klucz dla sesji
-  resave: true,
   saveUninitialized: false
 }));
 app.use(passport.initialize());
