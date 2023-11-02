@@ -124,25 +124,86 @@ div.form-komentarz
     p(id="powiadomienie").powiadomienie
     button(type="submit" onclick="komentarz(document.getElementById('komentarz'))")
         | prześlij komentarz
-div.komentarze
-    h4 Komentarze:
-    div.row.row-cols-2.row-cols-md-2.g-3
-        if komentarze
-            each uztekst, index in komentarze
-                div.komentarz
-                    div.data_dodania(id=index) ""
+if dane_uz
+    if dane_uz.rola == "pracownik" || dane_uz.rola == "administrator"
+        div.komentarze
+            h4 Komentarze:
+            div.row.row-cols-2.row-cols-md-2.g-3
+                if komentarze
+                    each uztekst, index in komentarze
+                        div.komentarz
+                            div.data_dodania(id=index) ""
+                            script.
+                                dataa = new Date(!{uztekst.data_dodania});
+                                dataa = dataa.toLocaleDateString(undefined, opcje);
+                                document.getElementById('#{index}').innerHTML = dataa;
+                            if uztekst.autor == ""
+                                div.autor_komentarza
+                                    | anonim
+                            else 
+                                div.autor_komentarza= uztekst.autor
+                            div.tresc_komentarza= uztekst.tresc
+                            .przycisk_usun(onclick="UsunKom('komentarze/" + gdzie + "/" + index + "')") X
                     script.
-                        dataa = new Date(!{uztekst.data_dodania});
-                        dataa = dataa.toLocaleDateString(undefined, opcje);
-                        document.getElementById('#{index}').innerHTML = dataa;
-                    if uztekst.autor == ""
-                        div.autor_komentarza
-                            | anonim
-                    else 
-                        div.autor_komentarza= uztekst.autor
-                    div.tresc_komentarza= uztekst.tresc
-        else
-            div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
+                        function UsunKom(x){
+                        fetch('/usunkom', { 
+                        method: 'POST', 
+                        headers: {'Content-Type': 'application/json'}, 
+                        body: JSON.stringify({kom:x}),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Po zakończeniu sukcesem, odśwież stronę
+                                location.reload();
+                            } else {
+                                console.error('Błąd w odpowiedzi HTTP:', response.status);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Błąd:', error);
+                        });}
+                else
+                    div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
+    else
+        div.komentarze
+            h4 Komentarze:
+            div.row.row-cols-2.row-cols-md-2.g-3
+                if komentarze
+                    each uztekst, index in komentarze
+                        div.komentarz
+                            div.data_dodania(id=index) ""
+                            script.
+                                dataa = new Date(!{uztekst.data_dodania});
+                                dataa = dataa.toLocaleDateString(undefined, opcje);
+                                document.getElementById('#{index}').innerHTML = dataa;
+                            if uztekst.autor == ""
+                                div.autor_komentarza
+                                    | anonim
+                            else 
+                                div.autor_komentarza= uztekst.autor
+                            div.tresc_komentarza= uztekst.tresc
+                else
+                    div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
+else
+    div.komentarze
+        h4 Komentarze:
+        div.row.row-cols-2.row-cols-md-2.g-3
+            if komentarze
+                each uztekst, index in komentarze
+                    div.komentarz
+                        div.data_dodania(id=index) ""
+                        script.
+                            dataa = new Date(!{uztekst.data_dodania});
+                            dataa = dataa.toLocaleDateString(undefined, opcje);
+                            document.getElementById('#{index}').innerHTML = dataa;
+                        if uztekst.autor == ""
+                            div.autor_komentarza
+                                | anonim
+                        else 
+                            div.autor_komentarza= uztekst.autor
+                        div.tresc_komentarza= uztekst.tresc
+            else
+                div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
 footer.footer
     .container
         .footer-content

@@ -118,6 +118,10 @@ async function Pytanie(baza, x, slowa) {
                     await baza.ref('artykuly/' + slowa).remove().then(
                         resolve("działa"))
                     break;
+                case 11:
+                    await baza.ref(slowa).remove().then(
+                        resolve("działa"))
+                    break;
                 default:
                     reject("Nieprawidłowy numer przypadku");
                     break;

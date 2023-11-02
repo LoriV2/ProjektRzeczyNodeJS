@@ -308,6 +308,16 @@ footer .footer-info a {
   border-radius: 12px;
   width: 29%;
 }
+.komentarze .komentarz .przycisk_usun {
+  border-radius: 25px;
+  padding: 12px;
+  margin: 10px;
+  width: fit-content;
+  float: right;
+  background-color: #38041e;
+  padding: 2%;
+  color: red;
+}
 .komentarze .komentarz .data_dodania {
   margin-top: 1%;
   font-size: small;

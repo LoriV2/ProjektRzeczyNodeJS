@@ -284,6 +284,7 @@ nav {
 
         div {
             display: none;
+
             button {
                 border: none;
                 background-color: $primary-color;
@@ -358,6 +359,17 @@ footer {
         margin: 2%;
         border-radius: 12px;
         width: 29%;
+
+        .przycisk_usun {
+            border-radius: 25px;
+            padding: 12px;
+            margin: 10px;
+            width: fit-content;
+            float: right;
+            background-color: $fourthary-color;
+            padding: 2%;
+            color: red;
+        }
 
         .data_dodania {
             margin-top: 1%;

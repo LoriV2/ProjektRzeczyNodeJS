@@ -1,6 +1,5 @@
 //pliki!!
 // Wczytaj dane z pliku .json
-const Pytanie = require('./DatabaseHandl.js');
 const tajnyklucz = require("./rzeczy.json");
 //do logowania
 const flash = require('connect-flash');
@@ -11,6 +10,7 @@ const session = require('express-session');
 const app = express();
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
+const Pytanie = require('./DatabaseHandl.js');
 //serwer połączenie
 var admin = require("firebase-admin");
 const { resolve } = require('path');
@@ -195,12 +195,21 @@ app.post('/Komentarz', (req, res) => {
   }
 });
 
+//zmienia rolę użytkownika
+app.post('/usunkom', (req, res) => {
+  Pytanie(baza, 11, req.body.kom).then(
+    res.status(200).send("Sukces")
+  );
+});
+
+//zmienia rolę użytkownika
 app.post('/zmien', (req, res) => {
   Pytanie(baza, 9, req.body.kto).then(
     res.status(200).send("Sukces")
   );
 });
 
+//usuwa artykuł
 app.post('/usunart', (req, res) => {
   Pytanie(baza, 10, req.body.ktory).then(
     res.status(200).send("Sukces")
