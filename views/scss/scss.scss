@@ -9,7 +9,17 @@ $fourthary-color: #38041e;
     font-family: Garamond;
     margin: 0;
     padding: 0;
+    font-size: large;
     box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: $fourthary-color;
+}
+
+a:hover{
+    color: $thirdary-color;
 }
 
 .table {

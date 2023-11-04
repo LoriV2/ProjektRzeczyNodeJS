@@ -96,11 +96,13 @@ async function Pytanie(baza, x, slowa) {
                         }
                     });
                     break;
+                //wybieranie wszystkich użytkowników do panelu administratora
                 case 8:
                     const snapshot7 = await baza.ref('uzytkownicy').once('value');
                     const odpowiedz7 = snapshot7.val();
                     resolve(odpowiedz7);
                     break;
+                //do zmiany roli
                 case 9:
                     await baza.ref('uzytkownicy/' + slowa + '/rola').once('value').then(
                         cos => {
@@ -115,10 +117,14 @@ async function Pytanie(baza, x, slowa) {
                             }
                         }
                     );
+                //usuwa artykuł i jego komentarze
                 case 10:
                     await baza.ref('artykuly/' + slowa).remove().then(
-                        resolve("działa"))
+                        baza.ref('komentarze/' + slowa).remove().then(
+                            resolve("działa"))
+                    )
                     break;
+                //do usuwania pojedyńczego komentarza
                 case 11:
                     await baza.ref(slowa).remove().then(
                         resolve("działa"))

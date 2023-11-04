@@ -4,7 +4,17 @@
   font-family: Garamond;
   margin: 0;
   padding: 0;
+  font-size: large;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #38041e;
+}
+
+a:hover {
+  color: #5dc7a4;
 }
 
 .table {
