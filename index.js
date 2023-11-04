@@ -1,41 +1,53 @@
-//pliki!!
+//index.js stworzony przez: Lorenzo Marinucci
 // Wczytaj dane z pliku .json
 const tajnyklucz = require("./rzeczy.json");
-//do logowania
+//powiadomienia dla serwera
 const flash = require('connect-flash');
+//passport.js do sesji i logiki logowania
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const express = require('express');
+//express.js
 const session = require('express-session');
+const express = require('express');
 const app = express();
+//biblioteka do wczytywania danych z formularzy
 const bodyParser = require('body-parser');
+//do szyfrowania
 const crypto = require('crypto');
+//funkcja do zadawania pytań bazie danych
 const Pytanie = require('./DatabaseHandl.js');
+
 //serwer połączenie
 var admin = require("firebase-admin");
 const { resolve } = require('path');
+
+//zmienne potrzebne do dalszego działania serwera
 let sformatowane;
 let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
 let artid;
 
+//połączenie z bazą danych
 admin.initializeApp({
   credential: admin.credential.cert(tajnyklucz),
   databaseURL: "https://data-y6-default-rtdb.europe-west1.firebasedatabase.app"
 });;
 const baza = admin.database();
 
+//zapisywanie danych użytkownika w sesji
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
     cb(null, { id: user.id, username: user.username, rola: user.rola });
   });
 });
 
+//usuwanie danych użytkownika w sesji
 passport.deserializeUser(function (user, cb) {
   process.nextTick(function () {
     return cb(null, user);
   });
 });
 
+//logika do logowania
 passport.use(new LocalStrategy(
   (username, password, done) => {
     baza.ref('uzytkownicy').orderByChild('login').equalTo(username).once('value', (cos) => {
@@ -52,24 +64,23 @@ passport.use(new LocalStrategy(
   }
 ));
 
+//deklarowanie z czego będzie korzystać serwer
 app.use(session({
   secret: crypto.randomBytes(32).toString('hex'), // Sekretny klucz dla sesji
   saveUninitialized: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(passport.authenticate('session'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static('views'));
-app.set('view engine', 'pug');
-app.use(flash());
-
-const PORT = process.env.PORT || 3030;
+app.use(passport.initialize());//sesja
+app.use(passport.session());//sesja
+app.use(passport.authenticate('session'));//sesja
+app.use(bodyParser.urlencoded({ extended: true }));//formularze
+app.use(express.json());//formularze
+app.use(express.static('views'));//podstrony i pliki w folderze views
+app.set('view engine', 'pug');//używam pug.js do renderowania stron
+app.use(flash());//powiadomienia serwerowe
 
 //wszystkie drogi prowadzą do mojej strony
-//strona główna
 
+//strona główna
 app.route('/')
   .all(function (req, res, next) {
     Pytanie(baza, 1, "aaa")
@@ -84,6 +95,7 @@ app.route('/')
       });
   });
 
+//podstrona O nas
 app.route('/Onas')
   .all(function (req, res, next) {
     res.render('Onas', {
@@ -106,7 +118,7 @@ app.route('/Nartykuly')
 
   });
 
-//droga do artykułów
+//droga do pojedyńczych artykułów
 app.get('/artykul', (req, res) => {
   if ((req.query.nr != undefined) || (req.query.slonce != undefined) || (req.query.chmurka != undefined)) {
     artid = req.query.nr || req.query.slonce || req.query.chmurka;
@@ -142,7 +154,7 @@ app.get('/artykul', (req, res) => {
 
 });
 
-//nowy artykuł
+//panel administratora
 app.route('/admin')
   .post(function (req, res, next) {
     if ((req.isAuthenticated()) && (req.user.rola == 'administrator')) {
@@ -163,10 +175,10 @@ app.route('/admin')
     }
   });
 
-//nowy artykuł
+//strona z formularzem nowy artykuł
 app.route('/nowy')
   .post(function (req, res, next) {
-    if (req.isAuthenticated()) {
+    if ((req.isAuthenticated()) && ((req.user.rola == "pracownik") || (req.user.rola == "administrator"))) {
       Pytanie(baza, 3, { id: req.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
         res.redirect('/nowy'));
     } else {
@@ -174,7 +186,7 @@ app.route('/nowy')
     }
   })
   .all(function (req, res, next) {
-    if (req.isAuthenticated()) {
+    if ((req.isAuthenticated()) && ((req.user.rola == "pracownik") || (req.user.rola == "administrator"))) {
       res.render('nowyrykul', { title: 'Nowy artykuł', dane_uz: req.user });
     } else {
       res.redirect('/Login');
@@ -194,7 +206,7 @@ app.post('/Komentarz', (req, res) => {
   }
 });
 
-//zmienia rolę użytkownika
+//usuwa komentarze
 app.post('/usunkom', (req, res) => {
   Pytanie(baza, 11, req.body.kom).then(
     res.status(200).send("Sukces")
@@ -238,7 +250,12 @@ app.route('/Login')
     failureFlash: true
   }))
   .all(function (req, res, next) {
-    res.render('login', { title: 'Logowanie', message: 'Zaloguj się!' });
+    if (req.user) {
+      res.redirect('/');
+    } else {
+      res.render('login', { title: 'Logowanie', message: 'Zaloguj się!' });
+    }
+
   });
 
 //Rejestracja
@@ -254,18 +271,22 @@ app.route('/Rejestracja')
       });
   })
   .all(function (req, res, next) {
-    res.render('register', { title: 'Rejestracja', message: 'Zarejestruj się!' });
+    if (req.user) {
+      res.redirect('/');
+    } else {
+      res.render('register', { title: 'Rejestracja', message: 'Zarejestruj się!' });
+    }
   });
 
 //jeśli nie znajdzie strony
 app.use((req, res, next) => {
-  res.status(404).send("Nie ma czegoś takiego!")
+  res.status(404).send("Błąd 404 Nie ma czegoś takiego! <br> <a href='/'>Wróć do strony głównej</a>")
 });
 
 //jeśli odpowie błędem
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Coś sie popsuło!!!')
+  res.status(500).send('Coś sie popsuło po stronie serwera!!! <br> <a href=' / '>Wróć do strony głównej</a>')
 });
 
 //inicjalizacja serwera

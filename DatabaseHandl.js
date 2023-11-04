@@ -1,3 +1,4 @@
+//DatabaseHandl.js stworzony przez: Lorenzo Marinucci
 const crypto = require('crypto');
 async function Pytanie(baza, x, slowa) {
     return new Promise(async (resolve, reject) => {

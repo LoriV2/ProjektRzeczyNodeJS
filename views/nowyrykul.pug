@@ -20,7 +20,9 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                 li.nav-item
                     a.nav-link(href='/Onas') O nas
                 li.nav-item
-                    a.nav-link.active(href='/nowy' aria-current='page') Nowy artykuł
+                    if dane_uz
+                        if dane_uz.rola == "administrator" || dane_uz.rola == "pracownik"
+                            a.nav-link(href='/nowy') Nowy artykuł
             span.navbar-text
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     if dane_uz
