@@ -49,7 +49,7 @@ div.container-lg.pojemnik.row.row-cols-1.row-cols-md-2.g-4
             .col
                 a(href="/artykul?nr=" + index) 
                     .card
-                        img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250')
+                        img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250' onerror="zdjecie/default.png")
                         .card-body
                             h5.card-title.text-center.text-truncate= article.tytul
                             p.card-text.text-truncate= article.tresc

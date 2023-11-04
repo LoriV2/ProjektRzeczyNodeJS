@@ -39,7 +39,7 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
                         li.nav-item
                             a.nav-link(href='/Rejestracja') Rejestracja
 .zdjc-art
-    img(src=message.zdjc, alt="Tutaj powinien być obrazek" width='375' height='400')
+    img(src=message.zdjc, alt="Tutaj powinien być obrazek" width='375' height='400' onerror="zdjecie/default.png")
 script(src='skrypty/skrypt.js')
 div.artykul-div
     h1= message.tytul_art
