@@ -20,7 +20,7 @@ const Pytanie = require('./DatabaseHandl.js');
 //serwer połączenie
 var admin = require("firebase-admin");
 const { resolve } = require('path');
-
+const FirebaseStore = require('connect-session-firebase')(session);
 //zmienne potrzebne do dalszego działania serwera
 let sformatowane;
 let opcje = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -66,8 +66,13 @@ passport.use(new LocalStrategy(
 
 //deklarowanie z czego będzie korzystać serwer
 app.use(session({
+  store: new FirebaseStore({
+    database: admin.database()
+  }),
+  resave: false,
   secret: crypto.randomBytes(32).toString('hex'), // Sekretny klucz dla sesji
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { secure: false }
 }));
 app.use(passport.initialize());//sesja
 app.use(passport.session());//sesja
@@ -86,7 +91,7 @@ app.route('/')
     Pytanie(baza, 1, "aaa")
       .then((odpowiedz) => {
         res.render('index', {
-          title: 'Strona Główna', message: odpowiedz, dane_uz: req.user
+          title: 'Strona Główna', message: odpowiedz, dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : ''
         });
       })
       .catch((error) => {
@@ -99,7 +104,7 @@ app.route('/')
 app.route('/Onas')
   .all(function (req, res, next) {
     res.render('Onas', {
-      title: 'O nas', dane_uz: req.user
+      title: 'O nas', dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : ''
     })
   });
 
@@ -108,10 +113,10 @@ app.route('/Nartykuly')
   .all(function (req, res, next) {
     Pytanie(baza, 6, "")
       .then((odpowiedz) => {
-        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz: req.user });
+        res.render('wszystkiekury', { title: 'Najnowsze artykuły', message: odpowiedz, dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : '' });
       }).catch((error) => {
         res.render('index', {
-          title: 'Strona Główna', message: "", dane_uz: req.user
+          title: 'Strona Główna', message: "", dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : ''
         });
         console.error("Błąd:", error);
       });
@@ -138,7 +143,7 @@ app.get('/artykul', (req, res) => {
           title: odpowiedz.tytul_art,
           message: odpowiedz,
           gdzie: artid,
-          dane_uz: req.user,
+          dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : '',
           doprzycisku: req.query.nr,
           komentarze: odpowiedz.komentarze
         }
@@ -149,7 +154,7 @@ app.get('/artykul', (req, res) => {
         console.error("Błąd:", error);
       });
   } else {
-    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', dane_uz: req.user });
+    res.render('artykul', { title: 'Artykuł', message: 'Taki artykuł nie istnieje!', dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : '' });
   }
 
 });
@@ -157,17 +162,17 @@ app.get('/artykul', (req, res) => {
 //panel administratora
 app.route('/admin')
   .post(function (req, res, next) {
-    if ((req.isAuthenticated()) && (req.user.rola == 'administrator')) {
-      Pytanie(baza, 9, { id: req.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
+    if ((req.isAuthenticated()) && (req.session.passport.user.rola == 'administrator')) {
+      Pytanie(baza, 9, { id: req.session.passport.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
         res.redirect('/admin'));
     } else {
       res.redirect('/Login');
     }
   })
   .all(function (req, res, next) {
-    if ((req.isAuthenticated()) && (req.user.rola == 'administrator')) {
+    if ((req.isAuthenticated()) && (req.session.passport.user.rola == 'administrator')) {
       Pytanie(baza, 8).then((cos) => {
-        res.render('admin', { cos, dane_uz: req.user });
+        res.render('admin', { cos, dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : '' });
       }
       );
     } else {
@@ -178,16 +183,16 @@ app.route('/admin')
 //strona z formularzem nowy artykuł
 app.route('/nowy')
   .post(function (req, res, next) {
-    if ((req.isAuthenticated()) && ((req.user.rola == "pracownik") || (req.user.rola == "administrator"))) {
-      Pytanie(baza, 3, { id: req.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
+    if ((req.isAuthenticated()) && ((req.session.passport.user.rola == "pracownik") || (req.session.passport.user.rola == "administrator"))) {
+      Pytanie(baza, 3, { id: req.session.passport.user.id, tresc: req.body.tresc, tytul: req.body.tytul, zdjc: req.body.zdjc, tagi: req.body.tagi }).then(
         res.redirect('/nowy'));
     } else {
       res.redirect('/Login');
     }
   })
   .all(function (req, res, next) {
-    if ((req.isAuthenticated()) && ((req.user.rola == "pracownik") || (req.user.rola == "administrator"))) {
-      res.render('nowyrykul', { title: 'Nowy artykuł', dane_uz: req.user });
+    if ((req.isAuthenticated()) && ((req.session.passport.user.rola == "pracownik") || (req.session.passport.user.rola == "administrator"))) {
+      res.render('nowyrykul', { title: 'Nowy artykuł', dane_uz: req.session.passport && req.session.passport.user ? req.session.passport.user : '' });
     } else {
       res.redirect('/Login');
     }
@@ -196,7 +201,7 @@ app.route('/nowy')
 //żeby dodać komentarz
 app.post('/Komentarz', (req, res) => {
   if (req.user) {
-    Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: req.user.username, link: req.body.gdzie }).then(
+    Pytanie(baza, 5, { komentarz: req.body.komentarz, autor: req.session.passport.user.username, link: req.body.gdzie }).then(
       res.status(200).send("Sukces")
     );
   } else {
