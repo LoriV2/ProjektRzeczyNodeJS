@@ -10,9 +10,8 @@
 
 ***
 
-{% embed url="https://yapp2go.fly.dev/" fullWidth="false" %}
+https://yapp2go.fly.dev/
 Link do strony
-{% endembed %}
 
 ## Główne założenia
 
