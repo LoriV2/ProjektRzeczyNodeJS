@@ -11,11 +11,11 @@
 
 a {
   text-decoration: none;
-  color: #5EB1BF;
+  color: #9AD4D6;
 }
 
 a:hover {
-  color: #CDEDF6;
+  color: #F2FDFF;
 }
 
 .table {
@@ -26,15 +26,15 @@ a:hover {
 .table td,
 .table th,
 .table tr {
-  color: #CDEDF6;
-  background-color: #042A2B;
-  border: 2px solid #5EB1BF;
+  color: #F2FDFF;
+  background-color: #564787;
+  border: 2px solid #9AD4D6;
 }
 .table tbody .c:hover {
-  background-color: #CDEDF6;
+  background-color: #F2FDFF;
 }
 .table td:hover {
-  background-color: #5EB1BF;
+  background-color: #9AD4D6;
 }
 
 .tytul {
@@ -51,43 +51,43 @@ a:hover {
   font-size: large;
 }
 .kolejny_parent .kreska_parent .kreska {
-  background-color: #CDEDF6;
+  background-color: #F2FDFF;
 }
 .kolejny_parent h1 {
-  color: #042A2B;
+  color: #564787;
 }
 .kolejny_parent a {
-  color: #EF7B45;
+  color: #DBCBD8;
 }
 .kolejny_parent a:hover {
-  color: #5EB1BF;
+  color: #9AD4D6;
 }
 .kolejny_parent .kolejny1 {
   display: inline-block;
   padding: 50px;
   height: 30%;
-  background-color: #042A2B;
+  background-color: #564787;
   width: 30%;
   border-radius: 90vw;
-  color: #CDEDF6;
+  color: #F2FDFF;
 }
 .kolejny_parent .kolejny2 {
   display: inline-block;
-  background-color: #042A2B;
+  background-color: #564787;
   padding: 50px;
   height: 30%;
   width: 30%;
   border-radius: 90vw;
-  color: #CDEDF6;
+  color: #F2FDFF;
 }
 .kolejny_parent .kolejny3 {
   display: inline-block;
   margin-top: 5%;
-  background-color: #042A2B;
+  background-color: #564787;
   width: fit-content;
   padding: 100px;
   border-radius: 10vh;
-  color: #CDEDF6;
+  color: #F2FDFF;
 }
 
 .kreska_parent {
@@ -100,7 +100,7 @@ a:hover {
   text-align: center;
   border-radius: 25%;
   height: 4px;
-  background-color: #042A2B;
+  background-color: #564787;
   width: 50%;
   margin-top: 2px;
   margin-bottom: 6%;
@@ -110,8 +110,8 @@ a:hover {
   text-align: center;
 }
 .przyciski_sort button {
-  background-color: #042A2B;
-  color: #CDEDF6;
+  background-color: #564787;
+  color: #F2FDFF;
   margin: 2%;
   border: none;
   border-radius: 25px;
@@ -132,15 +132,15 @@ input {
 }
 
 input:focus {
-  outline: #EF7B45 groove 10px;
+  outline: #DBCBD8 groove 10px;
 }
 
 input:hover {
-  outline: #EF7B45 groove 10px;
+  outline: #DBCBD8 groove 10px;
 }
 
 body {
-  background-color: #EF7B45;
+  background-color: #DBCBD8;
 }
 
 textarea {
@@ -150,7 +150,7 @@ textarea {
 
 .indexten {
   text-align: center;
-  color: #CDEDF6;
+  color: #F2FDFF;
 }
 
 .chmurkaislonce {
@@ -170,17 +170,17 @@ textarea {
   margin-right: 2%;
 }
 .chmurkaislonce .chmurka:hover {
-  border: #CDEDF6 1px solid;
+  border: #F2FDFF 1px solid;
   background-image: url("https://i.imgur.com/N5JUANZ.png");
 }
 .chmurkaislonce .slonce:hover {
-  border: #CDEDF6 1px solid;
+  border: #F2FDFF 1px solid;
   background-image: url("https://teraz.com.pl/vardata/gify/kotki/kotki076.gif");
   background-repeat: no-repeat;
 }
 
 .form-komentarz {
-  color: #CDEDF6;
+  color: #F2FDFF;
   width: 100%;
   text-align: center;
   margin-bottom: 4%;
@@ -190,23 +190,23 @@ textarea {
   text-wrap: 10;
 }
 .form-komentarz button {
-  background-color: #042A2B;
-  color: #EF7B45;
+  background-color: #564787;
+  color: #DBCBD8;
   border: none;
   border-radius: 25px;
   padding: 10px;
 }
 .form-komentarz button:hover {
-  background-color: #CDEDF6;
-  color: #042A2B;
+  background-color: #F2FDFF;
+  color: #564787;
 }
 .form-komentarz textarea {
   max-height: 100px;
   border: none;
   padding: 10px;
   border-radius: 35px;
-  background-color: #042A2B;
-  color: #CDEDF6;
+  background-color: #564787;
+  color: #F2FDFF;
 }
 
 .zdjcrzeczy {
@@ -224,27 +224,27 @@ textarea {
 nav {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  background-color: #042A2B;
+  background-color: #564787;
 }
 
 .card {
   border-radius: 20px;
-  background-color: #CDEDF6;
-  color: #042A2B;
+  background-color: #F2FDFF;
+  color: #564787;
 }
 .card a {
   text-decoration: none;
-  color: #042A2B;
+  color: #564787;
   border-radius: 20px;
 }
 .card a:hover {
-  background-color: #042A2B;
-  color: #CDEDF6;
+  background-color: #564787;
+  color: #F2FDFF;
 }
 .card .widoczny {
   display: block;
-  color: #CDEDF6;
-  background-color: #5EB1BF;
+  color: #F2FDFF;
+  background-color: #9AD4D6;
   padding: 10%;
   border: none;
   border-bottom-left-radius: 20px;
@@ -263,24 +263,24 @@ nav {
 }
 .card .niewidoczny div button {
   border: none;
-  background-color: #042A2B;
-  color: #CDEDF6;
+  background-color: #564787;
+  color: #F2FDFF;
   border-radius: 25px;
   padding: 10px;
   margin: 2%;
 }
 .card .niewidoczny div button:hover {
-  background-color: #5EB1BF;
+  background-color: #9AD4D6;
   color: red;
 }
 .card button:hover {
-  background-color: #042A2B;
+  background-color: #564787;
   color: red;
 }
 
 footer {
-  background-color: #5EB1BF;
-  color: #EF7B45;
+  background-color: #9AD4D6;
+  color: #DBCBD8;
   padding: 20px 0;
   text-align: center;
   border-top-right-radius: 35px;
@@ -300,13 +300,13 @@ footer .footer-info p {
   margin: 5px 0;
 }
 footer .footer-info a {
-  color: #CDEDF6;
+  color: #F2FDFF;
   text-decoration: none;
 }
 
 .komentarze {
-  background-color: #042A2B;
-  color: #CDEDF6;
+  background-color: #564787;
+  color: #F2FDFF;
   width: 100%;
   padding: 1%;
   text-align: left;
@@ -314,7 +314,7 @@ footer .footer-info a {
   margin-bottom: 10%;
 }
 .komentarze .komentarz {
-  border: solid 1px #CDEDF6;
+  border: solid 1px #F2FDFF;
   margin: 2%;
   border-radius: 12px;
   width: 29%;
@@ -325,7 +325,7 @@ footer .footer-info a {
   margin: 10px;
   width: fit-content;
   float: right;
-  background-color: #5EB1BF;
+  background-color: #9AD4D6;
   padding: 2%;
   color: red;
 }
@@ -349,12 +349,12 @@ footer .footer-info a {
 
 .login-div {
   text-size-adjust: 10;
-  border: #042A2B 9px solid;
+  border: #564787 9px solid;
   border-radius: 25px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  background-color: #CDEDF6;
+  background-color: #F2FDFF;
   width: fit-content;
   height: fit-content;
 }
@@ -363,10 +363,10 @@ footer .footer-info a {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10%;
-  background-color: #EF7B45;
+  background-color: #DBCBD8;
   width: 30%;
   border-radius: 45px;
-  color: #CDEDF6;
+  color: #F2FDFF;
 }
 .login-div input {
   padding: 5%;
@@ -374,14 +374,14 @@ footer .footer-info a {
   margin-top: 20%;
 }
 .login-div button:hover {
-  color: #CDEDF6;
-  background-color: #EF7B45;
+  color: #F2FDFF;
+  background-color: #DBCBD8;
 }
 .login-div button {
   border-radius: 45px;
   padding: 5%;
   color: white;
-  background-color: #042A2B;
+  background-color: #564787;
   border: none;
   margin-top: 10%;
   margin-bottom: 10%;
@@ -411,7 +411,7 @@ footer .footer-info a {
   top: 0;
   margin-bottom: 2%;
   /* Use your background color, assuming white: */
-  background-image: linear-gradient(to top, #EF7B45, rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to top, #DBCBD8, rgba(255, 255, 255, 0));
 }
 
 .artykul-div {
@@ -425,8 +425,8 @@ footer .footer-info a {
   z-index: 1;
   margin-top: -200px;
   margin-bottom: 10vh;
-  background-color: #EF7B45;
-  color: #042A2B;
+  background-color: #DBCBD8;
+  color: #564787;
 }
 .artykul-div div {
   margin-left: 10vw;
@@ -441,8 +441,8 @@ footer .footer-info a {
 }
 .tagi div {
   display: inline-block;
-  background-color: #5EB1BF;
-  color: #CDEDF6;
+  background-color: #9AD4D6;
+  color: #F2FDFF;
   padding: 10px;
   width: fit-content;
   border-radius: 35px;
@@ -450,7 +450,7 @@ footer .footer-info a {
 
 .artykul-form-div {
   text-size-adjust: 10;
-  border: #042A2B 9px solid;
+  border: #564787 9px solid;
   border-radius: 25px;
   text-align: center;
   width: 100%;
@@ -464,8 +464,8 @@ footer .footer-info a {
   width: fit-content;
 }
 .artykul-form-div button:hover {
-  color: #CDEDF6;
-  background-color: #5EB1BF;
+  color: #F2FDFF;
+  background-color: #9AD4D6;
 }
 .artykul-form-div textarea:focus {
   border: none;
@@ -474,15 +474,15 @@ footer .footer-info a {
   width: 100%;
   height: 100%;
   text-align: center;
-  background-color: #EF7B45;
-  color: #042A2B;
-  border: #042A2B 2px solid;
+  background-color: #DBCBD8;
+  color: #564787;
+  border: #564787 2px solid;
 }
 .artykul-form-div button {
   border-radius: 45px;
   padding: 5%;
   color: white;
-  background-color: #042A2B;
+  background-color: #564787;
   border: none;
   margin-bottom: 10%;
 }
