@@ -40,9 +40,9 @@ Link do strony
 ### Dostępne dla wszystkich:
 
 * Przeglądanie artykułów
-* Komentowanie
-* Możliwość rejestracji
-* Możliwość zalogowania się
+* Komentowanie (pod artykułami)
+* Możliwość rejestracji (na stronie /Rejestracja)
+* Możliwość zalogowania się (na stronie /login)
 
 ### Dostępne dla zalogowanych użytkowników:
 
@@ -52,14 +52,14 @@ Link do strony
 ### Dostępne dla pracowników:
 
 * To samo co dla wszystkich powyższych
-* Tworzenie artykułów
-* Usuwanie artykułów
-* Usuwanie komentarzy
+* Tworzenie artykułów (Jest możliwe by wpisywać tagi html i prawidłowo je wczytywać podczas widoku artykułu)
+* Usuwanie artykułów (W widoku wszystkie artykuły)
+* Usuwanie komentarzy (Klikając X pojawiający się przy danym komentarzu)
 
 ### Dostępne dla administratora:
 
 * To samo co dla wszystkich powyższych
-* Możliwość zmiany roli użytkowników
+* Możliwość zmiany roli użytkowników (W panelu administratora)
 
 
 
