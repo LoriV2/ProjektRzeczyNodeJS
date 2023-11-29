@@ -62,21 +62,13 @@ a:hover {
 .kolejny_parent a:hover {
   color: #29274C;
 }
-.kolejny_parent .kolejny1 {
-  display: inline-block;
-  padding: 50px;
-  height: 30%;
-  background-color: #012A36;
-  width: 30%;
-  border-radius: 90vw;
-  color: #7E52A0;
-}
+.kolejny_parent .kolejny1,
 .kolejny_parent .kolejny2 {
   display: inline-block;
-  background-color: #012A36;
   padding: 50px;
-  height: 30%;
-  width: 30%;
+  background-color: #012A36;
+  width: min-content;
+  height: min-content;
   border-radius: 90vw;
   color: #7E52A0;
 }
@@ -367,6 +359,12 @@ footer .footer-info a {
   width: 30%;
   border-radius: 45px;
   color: #7E52A0;
+}
+.login-div a {
+  color: #D295BF;
+}
+.login-div a:hover {
+  color: #012A36;
 }
 .login-div input {
   padding: 5%;

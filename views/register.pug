@@ -2,7 +2,10 @@ doctype html
 head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title= title 
+    meta(name='description' content='Zarejestruj się na astelta.online zwane inaczej yapp2go!')
+    meta(name='keywords' content='astelta.online, Rejestracja, yapp2go, artykuły, absurdykuły, śmiesznokuły, o astelta.online, o yapp2go, o nas.')
+    title
+        | Zarejestruj się!
     link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
     link(rel='stylesheet' href='css/css.css')
 nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
@@ -30,10 +33,13 @@ nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
         p= message
         form(action="/Rejestracja" method="post") 
             input(type="text" placeholder="login" name="username")
-            input(type="password" placeholder="hasło" name="password")
+            input(type="password" placeholder="hasło" name="password" min="7")
             br
             button(type="submit" value="submit")
                 | prześlij
+            br
+            a(href="/Login")
+                |Masz już konto?
 footer.footer
     .container
         .footer-content

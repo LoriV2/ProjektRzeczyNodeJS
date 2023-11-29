@@ -16,6 +16,8 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 //funkcja do zadawania pytań bazie danych
 const Pytanie = require('./DatabaseHandl.js');
+//ikonka
+const favicon = require('serve-favicon');
 
 //serwer połączenie
 var admin = require("firebase-admin");
@@ -80,6 +82,7 @@ app.use(passport.authenticate('session'));//sesja
 app.use(bodyParser.urlencoded({ extended: true }));//formularze
 app.use(express.json());//formularze
 app.use(express.static('views'));//podstrony i pliki w folderze views
+app.use(favicon('./views/zdjecie/fav.ico'));
 app.set('view engine', 'pug');//używam pug.js do renderowania stron
 app.use(flash());//powiadomienia serwerowe
 
@@ -251,16 +254,21 @@ app.get('/Logout', (req, res) => {
 app.route('/Login')
   .post(passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/Login',
+    failureRedirect: '/Login?error=true',
     failureFlash: true
   }))
-  .all(function (req, res, next) {
-    if (req.user) {
-      res.redirect('/');
+  .get(function (req, res) {
+    // Sprawdzenie czy parametr "error" jest obecny w zapytaniu
+    if (req.query.error) {
+      res.render('login', { title: 'Logowanie', message: 'Błędna nazwa użytkownika bądź hasło' });
     } else {
-      res.render('login', { title: 'Logowanie', message: 'Zaloguj się!' });
+      // Obsługa standardowego żądania GET na '/Login'
+      if (req.user) {
+        res.redirect('/');
+      } else {
+        res.render('login', { title: 'Logowanie', message: 'Zaloguj się!' });
+      }
     }
-
   });
 
 //Rejestracja

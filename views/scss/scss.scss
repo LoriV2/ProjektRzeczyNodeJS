@@ -56,6 +56,11 @@ a:hover {
 }
 
 .kolejny_parent {
+
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+
     ol {
         font-size: large;
     }
@@ -78,29 +83,19 @@ a:hover {
         color: $fourthary-color;
     }
 
-    width: 100%;
-    text-align: center;
-    display: inline-block;
 
-    .kolejny1 {
-        display: inline-block;
-        padding: 50px;
-        height: 30%;
-        background-color: $primary-color;
-        width: 30%;
-        border-radius: 90vw;
-        color: $thirdary-color;
-    }
-
+    .kolejny1,
     .kolejny2 {
         display: inline-block;
-        background-color: $primary-color;
         padding: 50px;
-        height: 30%;
-        width: 30%;
+        background-color: $primary-color;
+        width: min-content;
+        height: min-content;
         border-radius: 90vw;
         color: $thirdary-color;
     }
+
+
 
     .kolejny3 {
 
@@ -428,6 +423,13 @@ footer {
         color: $thirdary-color;
     }
 
+    a {
+        color: $secondary-color;
+    }
+
+    a:hover {
+        color: $primary-color;
+    }
 
     input {
         padding: 5%;
