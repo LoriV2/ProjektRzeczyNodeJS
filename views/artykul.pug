@@ -1,178 +1,199 @@
-doctype html
-head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    if message.tagi 
-        - var hashtagString1 = message.tagi;
+html(lang="pl")
+    head
+        meta(charset='UTF-8')
+        meta()
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        if message.tagi 
+            - var hashtagString1 = message.tagi;
 
-        - var hashtagArray2 = hashtagString1.replace(/#/g, ';');
-        meta(name='keywords' content= 'artykuł;astelta.online;astelta;yapp2go;'+ hashtagArray2)
-    else 
-        meta(name='keywords' content= 'artykuł na astelta.online, śmieszne, fajne, śmiesznokuł')
-    title= message.tytul || title
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
-    link(rel='stylesheet' href='css/css.css')
-nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
-    .container-fluid
-        a.navbar-brand(href='/')
-            h1 Y
-        button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbarText.collapse.navbar-collapse
-            ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                li.nav-item
-                    a.nav-link.active(href='/') Strona G&lstrok;&oacute;wna
-                li.nav-item
-                    a.nav-link(href='/Nartykuly') Wszystkie artykuły
-                li.nav-item
-                    a.nav-link(href='/Onas') O nas
-                li.nav-item
-                    if dane_uz
-                        if dane_uz.rola == "administrator" || dane_uz.rola == "pracownik"
-                            a.nav-link(href='/nowy') Nowy artykuł
-            span.navbar-text
+            - var hashtagArray2 = hashtagString1.replace(/#/g, ';');
+            meta(name='keywords' content=  hashtagArray2 + 'artykuł;astelta.online;astelta;yapp2go;')
+        else 
+            meta(name='keywords' content= 'artykuł na astelta.online, śmieszne, fajne, śmiesznokuł')
+        title= message.tytul || title
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
+        link(rel='stylesheet' href='css/css.css')
+    nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
+        .container-fluid
+            a.navbar-brand(href='/')
+                h2 Y
+            button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarText.collapse.navbar-collapse
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                    if dane_uz
-                        if dane_uz.rola == "administrator"
+                    li.nav-item
+                        a.nav-link.active(href='/') Strona G&lstrok;&oacute;wna
+                    li.nav-item
+                        a.nav-link(href='/Nartykuly') Wszystkie artykuły
+                    li.nav-item
+                        a.nav-link(href='/Onas') O nas
+                    li.nav-item
+                        if dane_uz
+                            if dane_uz.rola == "administrator" || dane_uz.rola == "pracownik"
+                                a.nav-link(href='/nowy') Nowy artykuł
+                span.navbar-text
+                    ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                        if dane_uz
+                            if dane_uz.rola == "administrator"
+                                li.nav-item
+                                    a.nav-link.active(aria-current='page' href='/admin') Panel administratora
                             li.nav-item
-                                a.nav-link.active(aria-current='page' href='/admin') Panel administratora
-                        li.nav-item
-                            a.nav-link.active(aria-current='page' href='#')= dane_uz.username
-                        li.nav-item
-                            a.nav-link.active(aria-current='page' href='/Logout') Wyloguj się
-                    else
-                        li.nav-item
-                            a.nav-link.active(aria-current='page' href='/Login') Login
-                        li.nav-item
-                            a.nav-link(href='/Rejestracja') Rejestracja
-.zdjc-art
-    img(src=message.zdjc, alt="Tutaj powinien być obrazek" width='375' height='400' onerror="zdjecie/default.png")
-script(src='skrypty/skrypt.js')
-div.artykul-div
-    h1= message.tytul_art
-    h3(id="data_dodania")= "Data dodania: " + data
-    div
-        if message.tresc
-            div
-                h4!= message.tresc
-        else
-            div= message
-if message.tagi
-    div.tagi
-        - var hashtagString = message.tagi;
+                                a.nav-link.active(aria-current='page' href='#')= dane_uz.username
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/Logout') Wyloguj się
+                        else
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/Login') Login
+                            li.nav-item
+                                a.nav-link(href='/Rejestracja') Rejestracja
+    .zdjc-art
+        img(src=message.zdjc, alt="Tutaj powinien być obrazek" width='375' height='400' onerror="zdjecie/default.png")
+    script(src='skrypty/skrypt.js')
+    div.artykul-div
+        h1= message.tytul_art
+        h3(id="data_dodania")= "Data dodania: " + data
+        div
+            if message.tresc
+                div
+                    h4!= message.tresc
+            else
+                div= message
+    if message.tagi
+        div.tagi
+            - var hashtagString = message.tagi;
 
-        - var hashtagArray = hashtagString.split('#').filter(Boolean);
+            - var hashtagArray = hashtagString.split('#').filter(Boolean);
 
-        each hashtag in hashtagArray
-            div= '#' + hashtag
-div.kreska_parent
-    div.kreska
-div.chmurkaislonce
-    h1
-        | Jak oceniasz ten artykuł?
-    button(type="button" name="slonce" onclick="zwiekszLiczbe('slonca')").slonce
-        span.emoji-large ☀️
-        if liczba 
-            p(id = 4).liczba= liczba.slonce
-        else 
-            p.liczba= 0 
-    button(type="button" name="chmurka" onclick="zwiekszLiczbe('chmurki')").chmurka
-        span.emoji-large 🌩️
-        if liczba 
-            p.liczba= liczba.chmurka
-        else 
-            p(id = 5).liczba= 0
-script.
-    let dataa;
-    let gdzie= "#{gdzie}";
-    function komentarz(x){
-        if((x.value.length < 2) || (x.value.length > 40)){
-            document.getElementById("powiadomienie").innerHTML = "Tekst nie może zawierać mniej niż 2 znaki i nie więcej niż 40!"
-        }else{
-            fetch('/Komentarz', { method: 'POST' , headers: {'Content-Type': 'application/json'} , body: JSON.stringify({gdzie: gdzie, komentarz: x.value})})   
-                .then(response => {
-        if (response.ok) {
-            // Po zakończeniu sukcesem, odśwież stronę
-            location.reload();
-        } else {
-            console.error('Błąd w odpowiedzi HTTP:', response.status);
-        }
+            each hashtag in hashtagArray
+                div= '#' + hashtag
+    div.kreska_parent
+        div.kreska
+    div.chmurkaislonce
+        h1
+            | Jak oceniasz ten artykuł?
+        button(type="button" name="slonce" onclick="zwiekszLiczbe('slonca')").slonce
+            span.emoji-large ☀️
+            if liczba 
+                p(id = 4).liczba= liczba.slonce
+            else 
+                p.liczba= 0 
+        button(type="button" name="chmurka" onclick="zwiekszLiczbe('chmurki')").chmurka
+            span.emoji-large 🌩️
+            if liczba 
+                p.liczba= liczba.chmurka
+            else 
+                p(id = 5).liczba= 0
+    script.
+        let dataa;
+        let gdzie= "#{gdzie}";
+        function komentarz(x){
+            if((x.value.length < 2) || (x.value.length > 40)){
+                document.getElementById("powiadomienie").innerHTML = "Tekst nie może zawierać mniej niż 2 znaki i nie więcej niż 40!"
+            }else{
+                fetch('/Komentarz', { method: 'POST' , headers: {'Content-Type': 'application/json'} , body: JSON.stringify({gdzie: gdzie, komentarz: x.value})})   
+                    .then(response => {
+            if (response.ok) {
+                // Po zakończeniu sukcesem, odśwież stronę
+                location.reload();
+            } else {
+                console.error('Błąd w odpowiedzi HTTP:', response.status);
+            }
+            })
+            .catch(error => {
+                console.error('Błąd:', error);
+            });
+            }}
+
+        function zwiekszLiczbe(rodzaj) {
+        fetch('/zwiekszLiczbe?rodzaj=' + rodzaj, { 
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({gdzie: gdzie, rodzaj: rodzaj})
+        })
+        .then(response => {
+            if (response.ok) {
+                // Po zakończeniu sukcesem, odśwież stronę
+                location.reload();
+            } else {
+                console.error('Błąd w odpowiedzi HTTP:', response.status);
+            }
         })
         .catch(error => {
             console.error('Błąd:', error);
         });
-        }}
-
-    function zwiekszLiczbe(rodzaj) {
-    fetch('/zwiekszLiczbe?rodzaj=' + rodzaj, { 
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({gdzie: gdzie, rodzaj: rodzaj})
-    })
-    .then(response => {
-        if (response.ok) {
-            // Po zakończeniu sukcesem, odśwież stronę
-            location.reload();
-        } else {
-            console.error('Błąd w odpowiedzi HTTP:', response.status);
         }
-    })
-    .catch(error => {
-        console.error('Błąd:', error);
-    });
-    }
 
 
 
 
-div.kreska_parent
-    div.kreska
-div.form-komentarz
-    textarea(name="komentarz" cols="5" rows="5" id = 'komentarz' minlength = "2" maxlenght = "40" placeholder="NAPISZ KOMENTARZ!!" required)
-    br
-    p(id="powiadomienie").powiadomienie
-    button(type="submit" onclick="komentarz(document.getElementById('komentarz'))")
-        | prześlij komentarz
-if dane_uz
-    if dane_uz.rola == "pracownik" || dane_uz.rola == "administrator"
-        div.komentarze
-            h4 Komentarze:
-            div.row.row-cols-2.row-cols-md-2.g-3
-                if komentarze
-                    each uztekst, index in komentarze
-                        div.komentarz
-                            div.data_dodania(id=index) ""
-                            script.
-                                dataa = new Date(!{uztekst.data_dodania});
-                                dataa = dataa.toLocaleDateString(undefined, opcje);
-                                document.getElementById('#{index}').innerHTML = dataa;
-                            if uztekst.autor == ""
-                                div.autor_komentarza
-                                    | anonim
-                            else 
-                                div.autor_komentarza= uztekst.autor
-                            div.tresc_komentarza= uztekst.tresc
-                            .przycisk_usun(onclick="UsunKom('komentarze/" + gdzie + "/" + index + "')") X
-                    script.
-                        function UsunKom(x){
-                        fetch('/usunkom', { 
-                        method: 'POST', 
-                        headers: {'Content-Type': 'application/json'}, 
-                        body: JSON.stringify({kom:x}),
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                // Po zakończeniu sukcesem, odśwież stronę
-                                location.reload();
-                            } else {
-                                console.error('Błąd w odpowiedzi HTTP:', response.status);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Błąd:', error);
-                        });}
-                else
-                    div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
+    div.kreska_parent
+        div.kreska
+    div.form-komentarz
+        textarea(name="komentarz" cols="5" rows="5" id = 'komentarz' minlength = "2" maxlenght = "40" placeholder="NAPISZ KOMENTARZ!!" required)
+        br
+        p(id="powiadomienie").powiadomienie
+        button(type="submit" onclick="komentarz(document.getElementById('komentarz'))")
+            | prześlij komentarz
+    if dane_uz
+        if dane_uz.rola == "pracownik" || dane_uz.rola == "administrator"
+            div.komentarze
+                h4 Komentarze:
+                div.row.row-cols-2.row-cols-md-2.g-3
+                    if komentarze
+                        each uztekst, index in komentarze
+                            div.komentarz
+                                div.data_dodania(id=index) ""
+                                script.
+                                    dataa = new Date(!{uztekst.data_dodania});
+                                    dataa = dataa.toLocaleDateString(undefined, opcje);
+                                    document.getElementById('#{index}').innerHTML = dataa;
+                                if uztekst.autor == ""
+                                    div.autor_komentarza
+                                        | anonim
+                                else 
+                                    div.autor_komentarza= uztekst.autor
+                                div.tresc_komentarza= uztekst.tresc
+                                .przycisk_usun(onclick="UsunKom('komentarze/" + gdzie + "/" + index + "')") X
+                        script.
+                            function UsunKom(x){
+                            fetch('/usunkom', { 
+                            method: 'POST', 
+                            headers: {'Content-Type': 'application/json'}, 
+                            body: JSON.stringify({kom:x}),
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Po zakończeniu sukcesem, odśwież stronę
+                                    location.reload();
+                                } else {
+                                    console.error('Błąd w odpowiedzi HTTP:', response.status);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Błąd:', error);
+                            });}
+                    else
+                        div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
+        else
+            div.komentarze
+                h4 Komentarze:
+                div.row.row-cols-2.row-cols-md-2.g-3
+                    if komentarze
+                        each uztekst, index in komentarze
+                            div.komentarz
+                                div.data_dodania(id=index) ""
+                                script.
+                                    dataa = new Date(!{uztekst.data_dodania});
+                                    dataa = dataa.toLocaleDateString(undefined, opcje);
+                                    document.getElementById('#{index}').innerHTML = dataa;
+                                if uztekst.autor == ""
+                                    div.autor_komentarza
+                                        | anonim
+                                else 
+                                    div.autor_komentarza= uztekst.autor
+                                div.tresc_komentarza= uztekst.tresc
+                    else
+                        div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
     else
         div.komentarze
             h4 Komentarze:
@@ -193,37 +214,17 @@ if dane_uz
                             div.tresc_komentarza= uztekst.tresc
                 else
                     div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
-else
-    div.komentarze
-        h4 Komentarze:
-        div.row.row-cols-2.row-cols-md-2.g-3
-            if komentarze
-                each uztekst, index in komentarze
-                    div.komentarz
-                        div.data_dodania(id=index) ""
-                        script.
-                            dataa = new Date(!{uztekst.data_dodania});
-                            dataa = dataa.toLocaleDateString(undefined, opcje);
-                            document.getElementById('#{index}').innerHTML = dataa;
-                        if uztekst.autor == ""
-                            div.autor_komentarza
-                                | anonim
-                        else 
-                            div.autor_komentarza= uztekst.autor
-                        div.tresc_komentarza= uztekst.tresc
-            else
-                div= "Brak komentarzy! Bądź pierwszy który napisze komentarz pod tym artykułem!!"
-footer.footer
-    .container
-        .footer-content
-            .footer-logo
-                a(href="https://github.com/LoriV2/ProjektRzeczyNodeJS" target="_blank")
-                    img(src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="GitHub Logo")
-            .footer-info
-                p
-                    | Strona stworzona przez 
-                    a(href="https://linktr.ee/loriv2") Lorenzo Marinucci
-                p
-                    | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
+    footer.footer
+        .container
+            .footer-content
+                .footer-logo
+                    a(href="https://github.com/LoriV2/ProjektRzeczyNodeJS" target="_blank")
+                        img(src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="GitHub Logo")
+                .footer-info
+                    p
+                        | Strona stworzona przez 
+                        a(href="https://linktr.ee/loriv2") Lorenzo Marinucci
+                    p
+                        | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
 

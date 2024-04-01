@@ -18,7 +18,27 @@ const crypto = require('crypto');
 const Pytanie = require('./DatabaseHandl.js');
 //ikonka
 const favicon = require('serve-favicon');
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAlQcMuImfrDRi5iFzSt9ICYqhUuDBNpII",
+  authDomain: "astelta.firebaseapp.com",
+  projectId: "astelta",
+  storageBucket: "astelta.appspot.com",
+  messagingSenderId: "973507619123",
+  appId: "1:973507619123:web:2f5c0f84328c144ba3b646",
+  measurementId: "G-94Q9M4K8M6"
+};
+
+// Initialize Firebase
+const Fire = initializeApp(firebaseConfig);
+const analytics = getAnalytics(Fire);
 //serwer połączenie
 var admin = require("firebase-admin");
 const { resolve } = require('path');

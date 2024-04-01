@@ -1,56 +1,56 @@
-doctype html
-head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    meta(name='description' content='Zarejestruj się na astelta.online zwane inaczej yapp2go!')
-    meta(name='keywords' content='astelta.online, Rejestracja, yapp2go, artykuły, absurdykuły, śmiesznokuły, o astelta.online, o yapp2go, o nas.')
-    title
-        | Zarejestruj się!
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
-    link(rel='stylesheet' href='css/css.css')
-nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
-    .container-fluid
-        a.navbar-brand(href='/')
-            h1 Y
-        button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbarText.collapse.navbar-collapse
-            ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                li.nav-item
-                    a.nav-link.active(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
-                li.nav-item
-                    a.nav-link(href='/Nartykuly') Najnowsze artyku&lstrok;y
-                li.nav-item
-                    a.nav-link(href='/Onas') O nas
-            span.navbar-text
+html(lang="pl")
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(name='description' content='Zarejestruj się na astelta.online zwane inaczej yapp2go!')
+        meta(name='keywords' content='astelta.online, Rejestracja, yapp2go, artykuły, absurdykuły, śmiesznokuły, o astelta.online, o yapp2go, o nas.')
+        title
+            | Zarejestruj się!
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
+        link(rel='stylesheet' href='css/css.css')
+    nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
+        .container-fluid
+            a.navbar-brand(href='/')
+                h2 Y
+            button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarText.collapse.navbar-collapse
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     li.nav-item
-                        a.nav-link.active(href='/Login') Login
+                        a.nav-link.active(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
                     li.nav-item
-                        a.nav-link(href='/Rejestracja' aria-current='page') Rejestracja
-.container-lg.pojemnik
-    div.login-div
-        p= message
-        form(action="/Rejestracja" method="post") 
-            input(type="text" placeholder="login" name="username")
-            input(type="password" placeholder="hasło" name="password" min="7")
-            br
-            button(type="submit" value="submit")
-                | prześlij
-            br
-            a(href="/Login")
-                |Masz już konto?
-footer.footer
-    .container
-        .footer-content
-            .footer-logo
-                a(href="https://github.com/LoriV2/ProjektRzeczyNodeJS" target="_blank")
-                    img(src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="GitHub Logo")
-            .footer-info
-                p
-                    | Strona stworzona przez 
-                    a(href="https://linktr.ee/loriv2") Lorenzo Marinucci
-                p
-                    | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
-script(src='skrypty/skrypt.js')
+                        a.nav-link(href='/Nartykuly') Najnowsze artyku&lstrok;y
+                    li.nav-item
+                        a.nav-link(href='/Onas') O nas
+                span.navbar-text
+                    ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                        li.nav-item
+                            a.nav-link.active(href='/Login') Login
+                        li.nav-item
+                            a.nav-link(href='/Rejestracja' aria-current='page') Rejestracja
+    .container-lg.pojemnik
+        div.login-div
+            p= message
+            form(action="/Rejestracja" method="post") 
+                input(type="text" placeholder="login" name="username")
+                input(type="password" placeholder="hasło" name="password" min="7")
+                br
+                button(type="submit" value="submit")
+                    | prześlij
+                br
+                a(href="/Login")
+                    |Masz już konto?
+    footer.footer
+        .container
+            .footer-content
+                .footer-logo
+                    a(href="https://github.com/LoriV2/ProjektRzeczyNodeJS" target="_blank")
+                        img(src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="GitHub Logo")
+                .footer-info
+                    p
+                        | Strona stworzona przez 
+                        a(href="https://linktr.ee/loriv2") Lorenzo Marinucci
+                    p
+                        | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
+    script(src='skrypty/skrypt.js')

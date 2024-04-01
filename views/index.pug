@@ -1,75 +1,75 @@
-doctype html
-head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    meta(name='description' content='cztery najnowsze artykuły strony astelta.online czy też yapp2go')
-    meta(name='keywords' content='astelta.online, strona główna, yapp2go, artykuły, absurdykuły, śmiesznokuły.')
-    title
-        | Y2go
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
-    link(rel='stylesheet' href='css/css.css')
-nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
-    .container-fluid
-        a.navbar-brand(href='/')
-            h1 Y
-        button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbarText.collapse.navbar-collapse
-            ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                li.nav-item
-                    a.nav-link.active(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
-                li.nav-item
-                    a.nav-link(href='/Nartykuly') Wszystkie artykuły
-                li.nav-item
-                    a.nav-link(href='/Onas') O nas
-                li.nav-item
-                    if dane_uz
-                        if dane_uz.rola == "administrator" || dane_uz.rola == "pracownik"
-                            a.nav-link(href='/nowy') Nowy artykuł
-                li.nav-item
-                    a.nav-link(href='')
-            span.navbar-text
+html(lang="pl")
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(name='description' content='Przeczytaj najnowsze(najśmieszniejsze) artykuły w internecie!')
+        meta(name='keywords' content='yapp2go;astelta.online;artykuły;absurdykuły;śmiesznokuły;co nowego?;')
+        title
+            | Strona Główna
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN' crossorigin='anonymous')
+        link(rel='stylesheet' href='css/css.css')
+    nav.navbar.navbar-expand-lg.sticky-top(data-bs-theme='dark')
+        .container-fluid
+            a.navbar-brand(href='/')
+                h2 Y2G
+            button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarText.collapse.navbar-collapse
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                    if dane_uz
-                        if dane_uz.rola == "administrator"
+                    li.nav-item
+                        a.nav-link.active(aria-current='page' href='/') Strona G&lstrok;&oacute;wna
+                    li.nav-item
+                        a.nav-link(href='/Nartykuly') Wszystkie artykuły
+                    li.nav-item
+                        a.nav-link(href='/Onas') O nas
+                    li.nav-item
+                        if dane_uz
+                            if dane_uz.rola == "administrator" || dane_uz.rola == "pracownik"
+                                a.nav-link(href='/nowy') Nowy artykuł
+                    li.nav-item
+                        a.nav-link(href='')
+                span.navbar-text
+                    ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                        if dane_uz
+                            if dane_uz.rola == "administrator"
+                                li.nav-item
+                                    a.nav-link.active(aria-current='page' href='/admin') Panel administratora
                             li.nav-item
-                                a.nav-link.active(aria-current='page' href='/admin') Panel administratora
-                        li.nav-item
-                            a.nav-link.active(aria-current='page' href='#')= dane_uz.username
-                        li.nav-item
-                            a.nav-link.active(aria-current='page' href='/Logout') Wyloguj się
-                    else
-                        li.nav-item
-                            a.nav-link.active(aria-current='page' href='/Login') Login
-                        li.nav-item
-                            a.nav-link(href='/Rejestracja') Rejestracja
-h1.indexten
-    | 4 Najnowsze artykuły!
-    br
-div.container-lg.pojemnik.row.row-cols-1.row-cols-md-2.g-4
-    each article, index in message
-        if index !== 0
-            .col
-                a(href="/artykul?nr=" + index) 
-                    .card
-                        img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250' onerror="zdjecie/default.png")
-                        .card-body
-                            h5.card-title.text-center.text-truncate= article.tytul
-                            p.card-text.text-truncate= article.tresc
+                                a.nav-link.active(aria-current='page' href='#')= dane_uz.username
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/Logout') Wyloguj się
+                        else
+                            li.nav-item
+                                a.nav-link.active(aria-current='page' href='/Login') Login
+                            li.nav-item
+                                a.nav-link(href='/Rejestracja') Rejestracja
+    h1.indexten
+        | 4 Najnowsze artykuły!
+        br
+    div.container-lg.pojemnik.row.row-cols-1.row-cols-md-2.g-4
+        each article, index in message
+            if index !== 0
+                .col
+                    a(href="/artykul?nr=" + index) 
+                        .card
+                            img.card-img-top.zdjcrzeczy(src= article.zdjc alt='...' width='375' height='250' onerror="zdjecie/default.png")
+                            .card-body
+                                h5.card-title.text-center.text-truncate= article.tytul
+                                p.card-text.text-truncate= article.tresc
 
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
-script(src='skrypty/skrypt.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous')
+    script(src='skrypty/skrypt.js')
 
 
-footer.footer
-    .container
-        .footer-content
-            .footer-logo
-                a(href="https://github.com/LoriV2/ProjektRzeczyNodeJS" target="_blank")
-                    img(src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="GitHub Logo")
-            .footer-info
-                p
-                    | Strona stworzona przez 
-                    a(href="https://linktr.ee/loriv2" target="_blank") Lorenzo Marinucci
-                p
-                    | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.
+    footer.footer
+        .container
+            .footer-content
+                .footer-logo
+                    a(href="https://github.com/LoriV2/ProjektRzeczyNodeJS" target="_blank")
+                        img(src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="GitHub Logo")
+                .footer-info
+                    p
+                        | Strona stworzona przez 
+                        a(href="https://linktr.ee/loriv2" target="_blank") Lorenzo Marinucci
+                    p
+                        | © #{new Date().getFullYear()} Wszelkie prawa zastrzeżone.

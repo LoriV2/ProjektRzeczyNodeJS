@@ -28,7 +28,7 @@ async function Pytanie(baza, x, slowa) {
                     break;
                 case 3:
                     //nowy artykuł
-                    await baza.ref('artykuly').push({
+                    const referencja = await baza.ref('artykuly').push({
                         data_publikacji: new Date().getTime(),
                         tagi: slowa.tagi.replace(/\s+/g, ''),
                         tresc: slowa.tresc,
@@ -37,6 +37,7 @@ async function Pytanie(baza, x, slowa) {
                         chmurki: 0,
                         slonca: 0,
                     })
+                    const klucz = referencja.key;
                     resolve("Pomyślnie dodano artykuł");
                     break;
                 case 4:
