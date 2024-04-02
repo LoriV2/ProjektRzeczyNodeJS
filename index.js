@@ -9,7 +9,6 @@ const LocalStrategy = require('passport-local').Strategy;
 //express.js
 const session = require('express-session');
 const express = require('express');
-const app = express();
 //biblioteka do wczytywania danych z formularzy
 const bodyParser = require('body-parser');
 //do szyfrowania
@@ -37,8 +36,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const Fire = initializeApp(firebaseConfig);
-const analytics = getAnalytics(Fire);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 //serwer połączenie
 var admin = require("firebase-admin");
 const { resolve } = require('path');
